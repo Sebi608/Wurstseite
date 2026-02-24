@@ -18,7 +18,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Header & Footer */
 header {
     background: linear-gradient(135deg, var(--secondary), #000);
     color: white;
@@ -50,7 +49,7 @@ footer {
     color: #747d8c;
 }
 
-/* Karten-System */
+/* Karten */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -65,7 +64,7 @@ footer {
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     margin-bottom: var(--section-gap);
     text-align: center;
-    border-bottom: 4px solid var(--primary); /* Jetzt für ALLE Karten gleich */
+    border-bottom: 4px solid var(--primary);
 }
 
 .card h2 {
@@ -88,7 +87,6 @@ footer {
     cursor: pointer;
 }
 
-/* Hover-Effekt für beide Buttons (wird rot wie die Linie unten) */
 .btn:hover {
     background: var(--primary);
     color: white;
@@ -109,7 +107,6 @@ footer {
     height: 100%;
 }
 
-/* Mitglieder-Liste Helfer */
 .back-link {
     display: inline-block;
     color: var(--secondary);
@@ -120,4 +117,5 @@ footer {
 
 .back-link:hover {
     color: var(--primary);
+
 }
