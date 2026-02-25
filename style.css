@@ -18,7 +18,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Header & Footer */
 header {
     background: linear-gradient(135deg, var(--secondary), #000);
     color: white;
@@ -50,7 +49,6 @@ footer {
     color: #747d8c;
 }
 
-/* Karten-System */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -65,7 +63,7 @@ footer {
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     margin-bottom: var(--section-gap);
     text-align: center;
-    border-bottom: 4px solid var(--primary); /* Jetzt für ALLE Karten gleich */
+    border-bottom: 4px solid var(--primary);
 }
 
 .card h2 {
@@ -73,7 +71,6 @@ footer {
     margin-top: 0;
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     background: white;
@@ -88,14 +85,12 @@ footer {
     cursor: pointer;
 }
 
-/* Hover-Effekt für beide Buttons (wird rot wie die Linie unten) */
 .btn:hover {
     background: var(--primary);
     color: white;
     transform: scale(1.05);
 }
 
-/* Wurstometer */
 .wurstometer-container {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 999px;
@@ -109,7 +104,6 @@ footer {
     height: 100%;
 }
 
-/* Mitglieder-Liste Helfer */
 .back-link {
     display: inline-block;
     color: var(--secondary);
@@ -123,7 +117,6 @@ footer {
 
 }
 
-/* Sidebar Styling */
 .sidebar {
     position: fixed;
     left: 0;
@@ -179,14 +172,12 @@ footer {
     transform: translateX(10px);
 }
 
-/* Layout Anpassung für große Bildschirme */
 @media (min-width: 1200px) {
     body {
-        padding-left: 250px; /* Platz für die Sidebar machen */
+        padding-left: 250px;
     }
 }
 
-/* Mobile Toggle (Nur sichtbar wenn Bildschirm klein) */
 .menu-toggle {
     position: fixed;
     top: 20px;
@@ -207,7 +198,6 @@ footer {
     .menu-toggle {
         display: block;
     }
-    /* Klasse zum Einblenden per JS/Klick */
     .sidebar-open .sidebar {
         transform: translateX(0);
     }
