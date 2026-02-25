@@ -1,43 +1,56 @@
 <!DOCTYPE html>
 <html lang="de">
-    
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lehrer | Team Wurstwasser</title>
-    <link rel="icon" type="image/png" href="img/logo.png">
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lehrer | Team Wurstwasser</title>
+        <link rel="icon" type="image/png" href="img/logo.png">
+        <link rel="stylesheet" href="style.css">
+    </head> 
 
-    
-<body>
-<header>
-    <h1>Best of Lehrer</h1>
-</header>
+    <body>
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img src="img/logo.png" alt="Logo" class="sidebar-logo">
+                <span>MENÜ</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠 Startseite</a></li>
+                <li><a href="mitglieder.html">👥 Mitglieder</a></li>
+                <li><a href="lehrer.html">🏫 Lehrer</a></li>
+            </ul>
+        </nav>
 
-<div class="container">
-    <a class="back-link" href="index.html">← Zurück zur Startseite</a>
-    
-    <section class="card">
-            <h2>Mr. A</h2>
-            <h3>The best teacher, isn't he?</h3>
-            <p><strong>Beste Sprüche</strong></p>
-            <p> It's not bed, its beeed</p>
-            <p><strong>Beste Verwechsler</strong></p>
-            <p>Leopold -> Leonard</p>
-            <p>Marius -> Markus</p>
-            <p>Sebastian -> Samuel</p>
-    </section>
-    
-    <section class="card">
-            <h2>Herr R. M.</h2>
-            <p><strong>lllccchhh</strong></p>
-    </section>
-</div>
+        <div class="menu-toggle" onclick="document.body.classList.toggle('sidebar-open')">
+            ☰
+        </div>
 
-<footer>
-    &copy; 2026 Team Wurstwasser
-</footer>
-</body>
+        <header>
+            <h1>Best of Lehrer</h1>
+        </header>
 
+        <div class="container">
+            <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+    
+            <section class="card">
+                <h2>Mr. A</h2>
+                <h3>The best teacher, isn't he?</h3>
+                <p><strong>Beste Sprüche</strong></p>
+                <p> It's not bed, its beeed</p>
+                <p><strong>Beste Verwechsler</strong></p>
+                <p>Leopold -> Leonard</p>
+                <p>Marius -> Markus</p>
+                <p>Sebastian -> Samuel</p>
+            </section>
+    
+            <section class="card">
+                <h2>Herr R. M.</h2>
+                <p><strong>lllccchhh</strong></p>
+            </section>
+        </div>
+
+        <footer>
+            &copy; 2026 Team Wurstwasser
+        </footer>
+    </body>
 </html>

@@ -1,69 +1,81 @@
 <!DOCTYPE html>
 <html lang="de">
-    
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Wurstwasser | Offizielle Website</title>
-    <link rel="icon" type="image/png" href="img/logo.png">
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team Wurstwasser | Offizielle Website</title>
+        <link rel="icon" type="image/png" href="img/logo.png">
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-    
-<body>
-<header>
-    <h1>TEAM WURSTWASSER</h1>
-    <p class="motto">"Der edle Tropfen unter den Abgründen"</p>
-</header>
+    <body>
+        <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="img/logo.png" alt="Logo" class="sidebar-logo">
+                <span>MENÜ</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠 Startseite</a></li>
+                <li><a href="mitglieder.html">👥 Mitglieder</a></li>
+                <li><a href="lehrer.html">🏫 Lehrer</a></li>
+            </ul>
+        </nav>
 
-<div class="container">
-    <section class="card">
-        <h2>Über uns</h2>
-        <p>Willkommen auf der offiziellen Website von <strong>Team Wurstwasser</strong>.</p>
-        <p>Wir sind mehr als nur eine Gruppe, wir sind ITler in freier Wildbahn.</p>
-        <p>Ob Gaming chillen oder gepflegtes Eskalieren: Wo wir sind, herrscht Ausnahmezustand.</p>
-    </section>
-
-    <section class="card">
-        <h2>Mitglieder</h2>
-        <p>Wer steckt hinter dem Namen? Schau dir unsere Gruppe an:</p>
-        <a href="mitglieder.html" class="btn">Zur Mitglieder-Seite</a>
-    </section>
-
-    <section class="card">
-        <h2>Lehrer</h2>
-        <p>Wer versucht uns im Schach zu halten? Schau dir unsere Lehrer an:</p>
-        <a href="lehrer.html" class="btn">Zur Lehrer-Seite</a>
-    </section>
-
-    <section class="card">
-        <h2>Wurstometer</h2>
-        <div class="wurstometer-container">
-            <div class="wurstometer-bar" style="width: 42%;"></div>
+        <div class="menu-toggle" onclick="document.body.classList.toggle('sidebar-open')">
+            ☰
         </div>
-        <p style="font-weight: bold; color: var(--accent)">42% Würze</p>
-    </section>
 
-    <section class="card"> <h2>Developer Corner</h2>
-        <p>Folge uns auf GitHub für Projekte und Scripte.</p>
-        <a href="https://github.com/Team-Wurstwasser" class="btn" target="_blank">🚀 GitHub Profil</a>
-    </section>
+        <header>
+            <h1>TEAM WURSTWASSER</h1>
+            <p class="motto">"Der edle Tropfen unter den Abgründen"</p>
+        </header>
 
-    <section class="card">
-        <h2>Interessante Knöpfe</h2>
-        <p>KNÖPFE???</p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
-            <a href="https://www.youtube.com/watch?v=xMHJGd3wwZk" class="btn" target="_blank" rel="noopener">Knopf</a>
-            <a href="https://www.youtube.com/watch?v=Wl959QnD3lM" class="btn" target="_blank" rel="noopener">Knopf</a>
-            <a href="https://www.youtube.com/watch?v=t6G2iPWL-uE" class="btn" target="_blank" rel="noopener">Knopf</a>
-        </div>   
-    </section>
-</div>
+        <div class="container">
+            <section class="card">
+                <h2>Über uns</h2>
+                <p>Willkommen auf der offiziellen Website von <strong>Team Wurstwasser</strong>.</p>
+                <p>Wir sind mehr als nur eine Gruppe, wir sind ITler in freier Wildbahn.</p>
+                <p>Ob Gaming chillen oder gepflegtes Eskalieren: Wo wir sind, herrscht Ausnahmezustand.</p>
+            </section>
 
-<footer>
-    &copy; 2026 Team Wurstwasser
-</footer>
-</body>
+            <section class="card">
+                <h2>Mitglieder</h2>
+                <p>Wer steckt hinter dem Namen? Schau dir unsere Gruppe an:</p>
+                <a href="mitglieder.html" class="btn">Zur Mitglieder-Seite</a>
+            </section>
 
+            <section class="card">
+                <h2>Lehrer</h2>
+                <p>Wer versucht uns im Schach zu halten? Schau dir unsere Lehrer an:</p>
+                <a href="lehrer.html" class="btn">Zur Lehrer-Seite</a>
+            </section>
 
+            <section class="card">
+                <h2>Wurstometer</h2>
+                <div class="wurstometer-container">
+                    <div class="wurstometer-bar" style="width: 42%;"></div>
+                </div>
+                    <p style="font-weight: bold; color: var(--accent)">42% Würze</p>
+            </section>
+
+            <section class="card"> <h2>Developer Corner</h2>
+                <p>Folge uns auf GitHub für Projekte und Scripte.</p>
+                <a href="https://github.com/Team-Wurstwasser" class="btn" target="_blank">🚀 GitHub Profil</a>
+            </section>
+
+            <section class="card">
+                <h2>Interessante Knöpfe</h2>
+                <p>KNÖPFE???</p>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
+                    <a href="https://www.youtube.com/watch?v=xMHJGd3wwZk" class="btn" target="_blank" rel="noopener">Knopf</a>
+                    <a href="https://www.youtube.com/watch?v=Wl959QnD3lM" class="btn" target="_blank" rel="noopener">Knopf</a>
+                    <a href="https://www.youtube.com/watch?v=t6G2iPWL-uE" class="btn" target="_blank" rel="noopener">Knopf</a>
+                </div>   
+            </section>
+        </div>
+
+        <footer>
+            &copy; 2026 Team Wurstwasser
+        </footer>
+    </body>
 </html>

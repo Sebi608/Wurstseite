@@ -49,7 +49,6 @@ footer {
     color: #747d8c;
 }
 
-/* Karten */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -72,7 +71,6 @@ footer {
     margin-top: 0;
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     background: white;
@@ -93,7 +91,6 @@ footer {
     transform: scale(1.05);
 }
 
-/* Wurstometer */
 .wurstometer-container {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 999px;
@@ -118,4 +115,86 @@ footer {
 .back-link:hover {
     color: var(--primary);
 
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background: var(--card-dark);
+    border-right: 3px solid var(--primary);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    transform: translateX(-100%);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+}
+
+.sidebar-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-bottom: 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    background: var(--primary);
+    transform: translateX(10px);
+}
+
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: var(--primary);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+    display: block;
+    transition: left 0.3s ease;
+}
+
+.sidebar-open .sidebar {
+    transform: translateX(0);
+}
+
+.sidebar-open body {
+    padding-left: 250px;
+}
+
+.sidebar-open .menu-toggle {
+    left: 270px;
 }
