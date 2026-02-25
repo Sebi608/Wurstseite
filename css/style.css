@@ -52,8 +52,10 @@ footer {
 footer a {
     text-decoration: none;
     color: inherit;
-    cursor: default;
+}
 
+footer a:hover {
+    color: var(--primary);
 }
 
 .container {
