@@ -128,6 +128,7 @@ footer {
     padding: 20px;
     transition: transform 0.3s ease;
     z-index: 1000;
+    transform: translateX(-100%);
 }
 
 .sidebar-header {
@@ -172,12 +173,6 @@ footer {
     transform: translateX(10px);
 }
 
-@media (min-width: 1200px) {
-    body {
-        padding-left: 250px;
-    }
-}
-
 .menu-toggle {
     position: fixed;
     top: 20px;
@@ -188,17 +183,18 @@ footer {
     border-radius: 5px;
     cursor: pointer;
     z-index: 1001;
-    display: none;
+    display: block;
+    transition: left 0.3s ease;
 }
 
-@media (max-width: 1199px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-    .menu-toggle {
-        display: block;
-    }
-    .sidebar-open .sidebar {
-        transform: translateX(0);
-    }
+.sidebar-open .sidebar {
+    transform: translateX(0);
+}
+
+.sidebar-open body {
+    padding-left: 250px;
+}
+
+.sidebar-open .menu-toggle {
+    left: 270px;
 }
