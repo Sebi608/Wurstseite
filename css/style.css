@@ -43,10 +43,11 @@ h1 {
 }
 
 footer {
+    background: linear-gradient(135deg, var(--secondary), #000);
+    color: white;
+    padding: 5rem 1rem;
     text-align: center;
-    padding: 3rem 1rem;
-    font-size: 0.9rem;
-    color: #747d8c;
+    clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);
 }
 
 footer a {
@@ -56,6 +57,11 @@ footer a {
 
 footer a:hover {
     color: var(--primary);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
 }
 
 .container {
