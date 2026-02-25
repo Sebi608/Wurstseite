@@ -198,3 +198,9 @@ footer {
 .sidebar-open .menu-toggle {
     left: 270px;
 }
+
+footer a {
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+}
