@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="de">   
+<html lang="de">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pi | Team Wurstwasser</title>
+        <title>Lehrer | Team Wurstwasser</title>
         <link rel="icon" type="image/png" href="img/Logo.png">
         <link rel="stylesheet" href="css/style.css">
-    </head>
+    </head> 
 
     <body>
         <nav class="sidebar">
@@ -29,18 +29,33 @@
         </div>
 
         <header>
-            <h1>Pi</h1>
-            <p class="motto">Der unendliche Zahlenstrom</p>
+            <h1>Best of Lehrer</h1>
         </header>
 
         <div class="container">
             <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+    
+            <section class="card">
+                <h2>Mr. A</h2>
+                <h3>The best teacher, isn't he?</h3>
+                <p><strong>Beste Sprüche</strong></p>
+                <p> It's not bed, its beeed</p>
+                <p><strong>Beste Verwechsler</strong></p>
+                <p>Leopold -> Leonard</p>
+                <p>Marius -> Markus</p>
+                <p>Sebastian -> Samuel</p>
+            </section>
 
-            <div class="pi-list">
-                <section class="card">
-                    <p id="pi-display"></p>
-                </section>
-            </div>
+            <section class="card">
+                <h2>Herr F.</h2>
+                <a class="mitglied-link"href="https://matheliebsch.de/">Matheliebsch Website</a>
+                <p><strong>DAS Wort: G*tz</strong></p>
+            </section>
+    
+            <section class="card">
+                <h2>Herr M.</h2>
+                <p><strong>lllccchhh</strong></p>
+            </section>
         </div>
 
         <footer>
@@ -49,50 +64,5 @@
                 <li><a href="impressum.html">Impressum</a></li>
             </ul>
         </footer>
-
-        <script>
-            let currentDigit = 0;
-            const batchSize = 1000;
-            let isLoading = false;
-            const display = document.getElementById('pi-display');
-
-            async function fetchPi() {
-                if (isLoading) return;
-                isLoading = true;
-                
-                try {
-                    const response = await fetch(`https://api.pi.delivery/v1/pi?start=${currentDigit}&numberOfDigits=${batchSize}`);
-                    const data = await response.json();
-
-                    if (data.content) {
-                        let content = data.content;
-
-                        if (currentDigit === 0 && content.startsWith('3')) {
-                            content = "3." + content.substring(1);
-                        }
-
-                        const textNode = document.createTextNode(content);
-                        display.appendChild(textNode);
-                        
-                        currentDigit += batchSize;
-                    }
-                } catch (error) {
-                    // Fehler werden ignoriert, um die Seite sauber zu halten
-                } finally {
-                    isLoading = false;
-                    checkScroll();
-                }
-            }
-
-            function checkScroll() {
-                const rect = display.getBoundingClientRect();
-                if (rect.bottom < window.innerHeight + 1500) {
-                    fetchPi();
-                }
-            }
-
-            window.addEventListener('scroll', checkScroll);
-            fetchPi();
-        </script>
     </body>
 </html>
