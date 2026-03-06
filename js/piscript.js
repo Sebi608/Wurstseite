@@ -1,48 +1,49 @@
-            let currentDigit = 0;
-            const batchSize = 500;
-            let isLoading = false;
+let currentDigit = 0;
+const batchSize = 500;
+let isLoading = false;
 
-            async function fetchPi() {
-                if (isLoading) return;
-                isLoading = true;
-                
-                try {
-                    const response = await fetch(`https://api.pi.delivery/v1/pi?start=${currentDigit}&numberOfDigits=${batchSize}`);
-                    if (!response.ok) throw new Error('API-Fehler');
-                    
-                    const data = await response.json();
+async function fetchPi() {
+    if (isLoading) return;
+    isLoading = true;
 
-                    if (data.content) {
-                        const display = document.getElementById('pi-display');
-                        let content = data.content;
+    try {
+        const response = await fetch(`https://api.pi.delivery/v1/pi?start=${currentDigit}&numberOfDigits=${batchSize}`);
+        
+        if (!response.ok) throw new Error('API-Fehler');
 
-                        if (currentDigit === 0 && content.charAt(0) === '3') {
-                            content = "3." + content.substring(1);
-                        }
+        const data = await response.json();
 
-                        const textNode = document.createTextNode(content);
-                        display.appendChild(textNode);
-                        
-                        currentDigit += batchSize;
-                    }
-                } catch (error) {
-                    console.error("Pi-Fehler:", error);
-                } finally {
-                    isLoading = false;
-                    checkAutoFill();
-                }
+        if (data.content) {
+            const display = document.getElementById('pi-display');
+            let content = data.content;
+
+            if (currentDigit === 0 && content.startsWith('3')) {
+                content = "3." + content.substring(1);
             }
 
-            function checkAutoFill() {
-                const display = document.getElementById('pi-display');
-                const rect = display.getBoundingClientRect();
-                if (rect.bottom < window.innerHeight + 1000) {
-                    fetchPi();
-                }
-            }
+            const textNode = document.createTextNode(content);
+            display.appendChild(textNode);
 
-            window.addEventListener('scroll', () => {
-                checkAutoFill();
-            });
+            currentDigit += batchSize;
+        }
+    } catch (error) {
+        console.error("Pi-Fehler:", error);
+    } finally {
+        isLoading = false;
+        checkAutoFill();
+    }
+}
 
-            fetchPi();
+function checkAutoFill() {
+    const display = document.getElementById('pi-display');
+    if (!display) return;
+
+    const rect = display.getBoundingClientRect();
+    if (rect.bottom < window.innerHeight + 1000) {
+        fetchPi();
+    }
+}
+
+window.addEventListener('scroll', checkAutoFill);
+
+fetchPi();
