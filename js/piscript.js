@@ -1,5 +1,6 @@
-let currentDigit = 0;
+const display = document.getElementById('pi-display');
 const batchSize = 500;
+let currentDigit = 0;
 let isLoading = false;
 
 async function fetchPi() {
@@ -14,7 +15,6 @@ async function fetchPi() {
         const data = await response.json();
 
         if (data.content) {
-            const display = document.getElementById('pi-display');
             let content = data.content;
 
             if (currentDigit === 0 && content.startsWith('3')) {
@@ -35,10 +35,8 @@ async function fetchPi() {
 }
 
 function checkAutoFill() {
-    const display = document.getElementById('pi-display');
-    if (!display) return;
-
     const rect = display.getBoundingClientRect();
+
     if (rect.bottom < window.innerHeight + 1000) {
         fetchPi();
     }
