@@ -1,16 +1,16 @@
-            #pi-display {
-                font-family: 'Courier New', Courier, monospace;
-                word-break: break-all;
-                overflow-wrap: anywhere;
-                line-height: 1.4;
-                letter-spacing: 0px;
-                color: #f1f2f6;
-                text-align: left;
-                font-size: 1rem;
-                min-height: 100vh;
-            }
+#pi-display {
+    font-family: 'Courier New', Courier, monospace;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+    letter-spacing: 0px;
+    color: #f1f2f6;
+    text-align: left;
+    font-size: 1rem;
+    min-height: 100vh;
+}
 
-            .card {
-                padding-top: 2rem !important;
-                padding-bottom: 5rem !important;
-            }
+.card {
+    padding-top: 2rem !important;
+    padding-bottom: 5rem !important;
+}
