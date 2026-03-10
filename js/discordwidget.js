@@ -2,7 +2,6 @@ const statusText = document.getElementById('discord-status');
 const discordBtn = document.getElementById('discord-button');
 const dot = document.querySelector('.status-dot');
 
-
 async function loadDiscord() {
     try {
         const response = await fetch('https://discord.com/api/guilds/1472365419816816877/widget.json');
