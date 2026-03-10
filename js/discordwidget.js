@@ -11,7 +11,7 @@ async function loadDiscord() {
             statusText.innerHTML = `<span style="color: #23a559;">${data.presence_count} Würste online</span>`;
             discordBtn.href = data.instant_invite;
             discordBtn.style.display = 'inline-block';
-            discordBtn.innerText = "Jetzt mitmischen";
+            discordBtn.innerText = "Dem Server beitreten";
         } else {
             statusText.innerText = "Server online (Invite aus)";
             dot.style.backgroundColor = "#ffa502";
