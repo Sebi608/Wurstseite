@@ -1,10 +1,28 @@
 const pathname = window.location.pathname.replace(/\\/g, '/');
-const basePath = pathname.includes('/person/') ? '../../' : pathname.includes('/random-stuff/') ? '../' : './';
+const isMitgliederSubpage = pathname.includes('/mitglieder/') && /\/mitglieder\/[^/]+\//.test(pathname);
+const basePath = isMitgliederSubpage ? '../../' : pathname.includes('/random-stuff/') || pathname.includes('/mitglieder/') ? '../' : '';
+
+function loadSidebarStyles() {
+    const stylesheetHref = `${basePath}css/seitenleiste.css`;
+    const existingStylesheet = document.querySelector(`link[rel="stylesheet"][href="${stylesheetHref}"]`);
+
+    if (existingStylesheet) {
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+        const linkElement = document.createElement('link');
+        linkElement.rel = 'stylesheet';
+        linkElement.href = stylesheetHref;
+        linkElement.onload = () => resolve();
+        document.head.appendChild(linkElement);
+    });
+}
 
 function generateSidebar() {
     const navItems = [
         { emoji: '🏠', text: 'Startseite', href: 'index.html' },
-        { emoji: '👥', text: 'Mitglieder', href: 'mitglieder.html' },
+        { emoji: '👥', text: 'Mitglieder', href: 'mitglieder/mitglieder.html' },
         { emoji: '🏫', text: 'Lehrer', href: 'lehrer.html' },
         { emoji: '🎮', text: 'Games', href: 'games.html' },
         { emoji: '🔢', text: 'Random Stuff', href: 'random-stuff.html' }
@@ -33,4 +51,4 @@ function generateSidebar() {
     document.body.insertAdjacentHTML('afterbegin', sidebarHTML);
 }
 
-generateSidebar();
+loadSidebarStyles().then(generateSidebar);
