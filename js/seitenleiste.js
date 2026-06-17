@@ -22,7 +22,7 @@ function loadSidebarStyles() {
 function generateSidebar() {
     const navItems = [
         { emoji: '🏠', text: 'Startseite', href: 'index.html' },
-        { emoji: '👥', text: 'Mitglieder', href: 'mitglieder.html' },
+        { emoji: '👥', text: 'Mitglieder', href: 'mitglieder/mitglieder.html' },
         { emoji: '🏫', text: 'Lehrer', href: 'lehrer.html' },
         { emoji: '🎮', text: 'Games', href: 'games.html' },
         { emoji: '🔢', text: 'Random Stuff', href: 'random-stuff.html' }
