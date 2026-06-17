@@ -1,7 +1,5 @@
-// IP-Converter Logik für Team Wurstwasser mit dynamischer Balken-Anzeige
 const bitValues = [128, 64, 32, 16, 8, 4, 2, 1];
 
-// Wechselt den Beispielwert im Input-Feld passend zum Modus
 function handleModeChange() {
     const mode = document.getElementById('modeSelect').value;
     const input = document.getElementById('ipInput');
@@ -72,7 +70,6 @@ function liveConvertIP() {
     const binResult = octetsBin.join('.');
     const decResult = octetsDec.join('.');
 
-    // Hier findet das dynamische Umdrehen statt
     if (mode === 'bin') {
         document.getElementById('headerText').innerText = `IP-Adresse in binär: ${binResult}`;
         document.getElementById('footerText').innerText = `IP-Adresse in dezimal: ${decResult}`;
@@ -158,5 +155,4 @@ function toggleBit(octetIndex, bitIndex) {
     liveConvertIP();
 }
 
-// Initialer Start beim Laden der Seite
 liveConvertIP();

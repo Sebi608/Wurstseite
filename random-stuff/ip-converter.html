@@ -4,39 +4,22 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>IP-Adresse Umwandler | Team Wurstwasser</title>
-        <link rel="icon" type="image/png" href="img/Logo.png">
-        
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/ip-converter.css">
+        <link rel="icon" type="image/png" href="../img/Logo.png">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/ip-converter.css">
+        <script src="../js/seitenleiste.js" defer></script>
+        <script src="../js/ip-converter.js" defer></script>
     </head>
 
     <body>
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <a href="index.html" class="sidebar-link">
-                    <img class="sidebar-logo" src="img/Logo.png">
-                    <span class="sidebar-span">Menü</span>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">🏠 Startseite</a></li>
-                <li><a href="mitglieder.html">👥 Mitglieder</a></li>
-                <li><a href="lehrer.html">🏫 Lehrer</a></li>
-                <li><a href="games.html">🎮 Games</a></li>
-                <li><a href="random-stuff.html">🔢 Random Stuff</a></li>
-            </ul>
-        </nav>
-
-        <div class="menu-toggle" onclick="document.body.classList.toggle('sidebar-open')">
-            ☰
-        </div>
-
         <header>
             <h1>IP-UMWANDLER</h1>
             <p class="motto">"Der edle Tropfen unter den Abgründen"</p>
         </header>
 
         <div class="container">
+            <a class="back-link" href="../index.html">← Zurück zur Startseite</a>
+
             <section class="card">
                 <h2>Binär-Dezimal-Konverter</h2>
                 <p>Nutze die Eingabefelder oben oder klicke direkt auf die Tabellen-Bits, um Werte fliegend zu ändern.</p>
@@ -74,11 +57,9 @@
 
         <footer>
             <ul>
-                <li><a href="index.html">&copy; 2026 Team Wurstwasser</a></li>
-                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="../index.html">&copy; 2026 Team Wurstwasser</a></li>
+                <li><a href="../impressum.html">Impressum</a></li>
             </ul>
         </footer>
-
-        <script src="js/ip-converter.js"></script>
     </body>
 </html>
