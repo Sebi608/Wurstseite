@@ -1,5 +1,6 @@
 const pathname = window.location.pathname.replace(/\\/g, '/');
-const basePath = pathname.includes('/person/') ? '../../' : pathname.includes('/random-stuff/') ? '../' : '';
+const isMitgliederSubpage = pathname.includes('/mitglieder/') && /\/mitglieder\/[^/]+\//.test(pathname);
+const basePath = isMitgliederSubpage ? '../../' : pathname.includes('/random-stuff/') || pathname.includes('/mitglieder/') ? '../' : '';
 
 function loadSidebarStyles() {
     const stylesheetHref = `${basePath}css/seitenleiste.css`;

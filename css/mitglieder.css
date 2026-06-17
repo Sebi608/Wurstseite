@@ -1,0 +1,9 @@
+.mitglied-link{
+    display: inline-block;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.mitglied-link:hover {
+    color: var(--primary);
+}
