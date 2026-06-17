@@ -1,4 +1,5 @@
-const basePath = window.location.pathname.includes('/person/') ? '../../' : './';
+const pathname = window.location.pathname.replace(/\\/g, '/');
+const basePath = pathname.includes('/person/') ? '../../' : pathname.includes('/random-stuff/') ? '../' : './';
 
 function generateSidebar() {
     const navItems = [
