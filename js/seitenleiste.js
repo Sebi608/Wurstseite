@@ -1,5 +1,22 @@
 const pathname = window.location.pathname.replace(/\\/g, '/');
-const basePath = pathname.includes('/person/') ? '../../' : pathname.includes('/random-stuff/') ? '../' : './';
+const basePath = pathname.includes('/person/') ? '../../' : pathname.includes('/random-stuff/') ? '../' : '';
+
+function loadSidebarStyles() {
+    const stylesheetHref = `${basePath}css/seitenleiste.css`;
+    const existingStylesheet = document.querySelector(`link[rel="stylesheet"][href="${stylesheetHref}"]`);
+
+    if (existingStylesheet) {
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+        const linkElement = document.createElement('link');
+        linkElement.rel = 'stylesheet';
+        linkElement.href = stylesheetHref;
+        linkElement.onload = () => resolve();
+        document.head.appendChild(linkElement);
+    });
+}
 
 function generateSidebar() {
     const navItems = [
@@ -33,4 +50,4 @@ function generateSidebar() {
     document.body.insertAdjacentHTML('afterbegin', sidebarHTML);
 }
 
-generateSidebar();
+loadSidebarStyles().then(generateSidebar);
