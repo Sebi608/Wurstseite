@@ -7,6 +7,10 @@
         <link rel="icon" type="image/png" href="../img/Logo.png">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/assembler.css">
+
+        <script src="../js/assembler/keystone.js" defer></script>
+        <script src="../js/assembler/capstone.js" defer></script>
+
         <script src="../js/seitenleiste.js" defer></script>
         <script src="../js/assembler/assembler.js" defer></script>
     </head>
@@ -21,7 +25,34 @@
             <a class="back-link" href="../index.html">← Zurück zur Startseite</a>
 
             <section class="card">
+                <div class="assembler-controls">
+                    <label for="archSelect">Architektur:</label>
+                    <select id="archSelect">
+                        <option value="x64">x86 (64-Bit)</option>
+                        <option value="x32">x86 (32-Bit)</option>
+                        <option value="x16">x86 (16-Bit)</option>
+                        <option value="arm">ARM (Standard)</option>
+                        <option value="arm_thumb">ARM (Thumb-Modus)</option>
+                        <option value="aarch64">AArch64 (ARM 64-Bit)</option>
+                        <option value="mips32">Mips (32-Bit)</option>
+                        <option value="mips64">Mips (64-Bit)</option>
+                        <option value="ppc32">PowerPC (32-Bit)</option>
+                        <option value="ppc64">PowerPC (64-Bit)</option>
+                        <option value="sparc">Sparc</option>
+                    </select>
+                </div>
 
+                <div class="assembler-workspace">
+                    <div class="editor-pane">
+                        <div class="pane-title">Assembly Code (Mnemonic)</div>
+                            <textarea id="asmInput" placeholder="z.B. mov eax, 1&#10;xor ebx, ebx"></textarea>
+                        </div>
+        
+                    <div class="editor-pane">
+                        <div class="pane-title">Maschinencode (Hex)</div>
+                        <textarea id="hexOutput" placeholder="z.B. b8 01 00 00 00 31 db"></textarea>
+                    </div>
+                </div>
             </section>
         </div>
 
