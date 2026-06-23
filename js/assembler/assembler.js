@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   let decoder = null;
 
   try {
-    console.log("Lade Assembler & Disassembler Engines...");
     const [cs, ks] = await Promise.all([
       MCapstone({ locateFile: (path) => `../js/assembler/${path}` }),
       MKeystone({ locateFile: (path) => `../js/assembler/${path}` })
@@ -26,12 +25,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     csInstance = cs;
     ksInstance = ks;
-    console.log("Engines erfolgreich geladen!");
 
     updateAssemblerArch();
     updateDisassemblerArch();
   } catch (error) {
-    console.error("Fehler beim Laden der WASM-Module:", error);
+    console.error("Fehler beim Laden der Assembler/Disassembler-Bibliotheken:", error);
     return;
   }
 
@@ -114,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const cleanHex = hexText.replace(/(0x|,|\s+)/g, "");
       if (cleanHex.length % 2 !== 0) {
-        disAsmOutput.value = "Ungültige Hex-Länge (muss gerade Anzahl an Zeichen sein).";
+        disAsmOutput.value = "Ungültige Hex-Länge.";
         return;
       }
 
