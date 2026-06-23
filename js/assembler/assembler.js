@@ -1,165 +1,181 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const asmInput = document.getElementById("asmInput");
-    const hexOutput = document.getElementById("hexOutput");
-    const archSelect = document.getElementById("archSelect");
+  const asmInput = document.getElementById("asmInput");
+  const hexOutput = document.getElementById("hexOutput");
+  const asmArchSelect = document.getElementById("asmArchSelect");
 
-    let ksInstance = null;
-    let csInstance = null;
-    let encoder = null;
-    let decoder = null;
+  const disHexInput = document.getElementById("disHexInput");
+  const disAsmOutput = document.getElementById("disAsmOutput");
+  const disArchSelect = document.getElementById("disArchSelect");
+
+  const baseAddrInput = document.getElementById("baseAddrInput");
+  const showAddresses = document.getElementById("showAddresses");
+  const showBytes = document.getElementById("showBytes");
+  const showInstructions = document.getElementById("showInstructions");
+
+  let ksInstance = null;
+  let csInstance = null;
+  let encoder = null;
+  let decoder = null;
+
+  try {
+    console.log("Lade Assembler & Disassembler Engines...");
+    const [cs, ks] = await Promise.all([
+      MCapstone({ locateFile: (path) => `../js/assembler/${path}` }),
+      MKeystone({ locateFile: (path) => `../js/assembler/${path}` })
+    ]);
+
+    csInstance = cs;
+    ksInstance = ks;
+    console.log("Engines erfolgreich geladen!");
+
+    updateAssemblerArch();
+    updateDisassemblerArch();
+  } catch (error) {
+    console.error("Fehler beim Laden der WASM-Module:", error);
+    return;
+  }
+
+  function getArchConfig(instance, archValue, isKeystone, forceBigEndian = false) {
+    const endianMode = forceBigEndian ? instance.MODE_BIG_ENDIAN : instance.MODE_LITTLE_ENDIAN;
+
+    switch (archValue) {
+      case "x64": return { arch: instance.ARCH_X86, mode: instance.MODE_64, intel: true };
+      case "x32": return { arch: instance.ARCH_X86, mode: instance.MODE_32, intel: true };
+      case "x16": return { arch: instance.ARCH_X86, mode: instance.MODE_16, intel: true };
+      case "arm": return { arch: instance.ARCH_ARM, mode: forceBigEndian ? instance.MODE_ARM + instance.MODE_BIG_ENDIAN : instance.MODE_ARM };
+      case "arm_thumb": return { arch: instance.ARCH_ARM, mode: forceBigEndian ? instance.MODE_THUMB + instance.MODE_BIG_ENDIAN : instance.MODE_THUMB };
+      case "aarch64": return { arch: instance.ARCH_ARM64, mode: isKeystone ? endianMode : instance.MODE_ARM };
+      case "mips32": return { arch: instance.ARCH_MIPS, mode: instance.MODE_MIPS32 + endianMode };
+      case "mips64": return { arch: instance.ARCH_MIPS, mode: instance.MODE_MIPS64 + endianMode };
+      case "ppc32": return { arch: instance.ARCH_PPC, mode: (isKeystone ? instance.MODE_PPC32 : instance.MODE_32) + endianMode };
+      case "ppc64": return { arch: instance.ARCH_PPC, mode: (isKeystone ? instance.MODE_PPC64 : instance.MODE_64) + endianMode };
+      case "sparc": return { arch: instance.ARCH_SPARC, mode: isKeystone ? (instance.MODE_SPARC32 + endianMode) : endianMode };
+      default: return null;
+    }
+  }
+
+  function updateAssemblerArch() {
+    if (!ksInstance) return;
+    if (encoder) encoder.close();
+
+    const config = getArchConfig(ksInstance, asmArchSelect.value, true);
+    if (config) {
+      encoder = new ksInstance.Keystone(config.arch, config.mode);
+      if (config.intel && ksInstance.OPT_SYNTAX && ksInstance.OPT_SYNTAX_INTEL) {
+        encoder.option(ksInstance.OPT_SYNTAX, ksInstance.OPT_SYNTAX_INTEL);
+      }
+    }
+    triggerAssemble();
+  }
+
+  function updateDisassemblerArch() {
+    if (!csInstance) return;
+    if (decoder) decoder.close();
+
+    const selectedEndian = document.querySelector('input[name="endian"]:checked').value;
+    const forceBigEndian = (selectedEndian === "be");
+
+    const config = getArchConfig(csInstance, disArchSelect.value, false, forceBigEndian);
+    if (config) {
+      decoder = new csInstance.Capstone(config.arch, config.mode);
+    }
+    triggerDisassemble();
+  }
+
+  function triggerAssemble() {
+    const asmText = asmInput.value.trim();
+    if (!asmText || !encoder) {
+      hexOutput.value = "";
+      return;
+    }
 
     try {
-        const [cs, ks] = await Promise.all([
-            MCapstone(),
-            MKeystone()
-        ]);
-        
-        csInstance = cs;
-        ksInstance = ks;
+      const output = encoder.asm(asmText);
+      if (output && output.mc) {
+        const hexString = Array.from(Object.values(output.mc))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join(' ');
+        hexOutput.value = hexString.toUpperCase();
+      } else {
+        hexOutput.value = "[Fehler beim Assemblieren]";
+      }
+    } catch (err) {
+      hexOutput.value = "Fehler: " + err.message;
+    }
+  }
 
-        updateArchitecture();
-    } catch (error) {
-        asmInput.value = "Fehler beim Laden der WebAssembly-Komponenten.";
+  function triggerDisassemble() {
+    const hexText = disHexInput.value.trim();
+    if (!hexText || !decoder) {
+      disAsmOutput.value = "";
+      return;
+    }
+
+    try {
+      const cleanHex = hexText.replace(/(0x|,|\s+)/g, "");
+      if (cleanHex.length % 2 !== 0) {
+        disAsmOutput.value = "Ungültige Hex-Länge (muss gerade Anzahl an Zeichen sein).";
         return;
-    }
+      }
 
-function updateArchitecture() {
-        if (!ksInstance || !csInstance) return;
+      const byteArray = [];
+      for (let i = 0; i < cleanHex.length; i += 2) {
+        byteArray.push(parseInt(cleanHex.substr(i, 2), 16));
+      }
 
-        if (encoder) encoder.close();
-        if (decoder) decoder.close();
+      let baseAddr = parseInt(baseAddrInput.value.trim(), 16);
+      if (isNaN(baseAddr)) {
+        baseAddr = parseInt(baseAddrInput.value.trim(), 10) || 0;
+      }
 
-        const selectedArch = archSelect.value;
+      const instructions = decoder.disasm(byteArray, baseAddr);
 
-        let useIntelSyntax = false;
+      if (instructions.length > 0) {
+        const asmLines = instructions.map(instr => {
+          let lineParts = [];
 
-        switch (selectedArch) {
-            case "x64":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_X86, ksInstance.MODE_64);
-                decoder = new csInstance.Capstone(csInstance.ARCH_X86, csInstance.MODE_64);
-                useIntelSyntax = true;
-                break;
+          if (showAddresses.checked) {
+            const addrStr = "0x" + instr.address.toString(16).padStart(8, '0');
+            lineParts.push(addrStr);
+          }
 
-            case "x32":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_X86, ksInstance.MODE_32);
-                decoder = new csInstance.Capstone(csInstance.ARCH_X86, csInstance.MODE_32);
-                useIntelSyntax = true;
-                break;
-
-            case "x16":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_X86, ksInstance.MODE_16);
-                decoder = new csInstance.Capstone(csInstance.ARCH_X86, csInstance.MODE_16);
-                useIntelSyntax = true;
-                break;
-
-            case "arm":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_ARM, ksInstance.MODE_ARM);
-                decoder = new csInstance.Capstone(csInstance.ARCH_ARM, csInstance.MODE_ARM);
-                break;
-            case "arm_thumb":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_ARM, ksInstance.MODE_THUMB);
-                decoder = new csInstance.Capstone(csInstance.ARCH_ARM, csInstance.MODE_THUMB);
-                break;
-            case "aarch64":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_ARM64, ksInstance.MODE_LITTLE_ENDIAN);
-                decoder = new csInstance.Capstone(csInstance.ARCH_ARM64, csInstance.MODE_ARM);
-                break;
-
-            case "mips32":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_MIPS, ksInstance.MODE_MIPS32 + ksInstance.MODE_LITTLE_ENDIAN);
-                decoder = new csInstance.Capstone(csInstance.ARCH_MIPS, csInstance.MODE_MIPS32 + csInstance.MODE_LITTLE_ENDIAN);
-                break;
-            case "mips64":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_MIPS, ksInstance.MODE_MIPS64 + ksInstance.MODE_LITTLE_ENDIAN);
-                decoder = new csInstance.Capstone(csInstance.ARCH_MIPS, csInstance.MODE_MIPS64 + csInstance.MODE_LITTLE_ENDIAN);
-                break;
-
-            case "ppc32":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_PPC, ksInstance.MODE_PPC32 + ksInstance.MODE_BIG_ENDIAN);
-                decoder = new csInstance.Capstone(csInstance.ARCH_PPC, csInstance.MODE_32 + csInstance.MODE_BIG_ENDIAN);
-                break;
-
-            case "ppc64":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_PPC, ksInstance.MODE_PPC64 + ksInstance.MODE_BIG_ENDIAN);
-                decoder = new csInstance.Capstone(csInstance.ARCH_PPC, csInstance.MODE_64 + csInstance.MODE_BIG_ENDIAN);
-                break;
-
-            case "sparc":
-                encoder = new ksInstance.Keystone(ksInstance.ARCH_SPARC, ksInstance.MODE_SPARC32 + ksInstance.MODE_BIG_ENDIAN);
-                decoder = new csInstance.Capstone(csInstance.ARCH_SPARC, csInstance.MODE_BIG_ENDIAN);
-                break;
-
-            default:
-                console.error("Unbekannte Architektur gewählt:", selectedArch);
-                return;
-        }
-
-        if (useIntelSyntax && ksInstance.OPT_SYNTAX && ksInstance.OPT_SYNTAX_INTEL) {
-            encoder.option(ksInstance.OPT_SYNTAX, ksInstance.OPT_SYNTAX_INTEL);
-        }
-
-        triggerAssemble();
-    }
-
-    function triggerAssemble() {
-        const asmText = asmInput.value.trim();
-        if (!asmText || !encoder) {
-            hexOutput.value = "";
-            return;
-        }
-
-        try {
-            const output = encoder.asm(asmText);
-            
-            if (output && output.mc) {
-                const hexString = Array.from(Object.values(output.mc))
-                    .map(b => b.toString(16).padStart(2, '0'))
-                    .join(' ');
-                hexOutput.value = hexString.toUpperCase();
-            } else {
-                hexOutput.value = "[Fehler beim Assemblieren]";
+          if (showBytes.checked) {
+            let bytesStr = "";
+            if (instr.bytes) {
+              bytesStr = Array.from(instr.bytes)
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
             }
-        } catch (err) {
-            hexOutput.value = "Fehler: " + err.message;
-        }
+            lineParts.push(bytesStr.padEnd(16, ' '));
+          }
+
+          if (showInstructions.checked) {
+            lineParts.push(`${instr.mnemonic} ${instr.op_str}`);
+          }
+
+          return lineParts.join("   ");
+        });
+
+        disAsmOutput.value = asmLines.join("\n");
+      } else {
+        disAsmOutput.value = "; Konnte keine gültigen Instruktionen dekodieren.";
+      }
+    } catch (err) {
+      disAsmOutput.value = "; Fehler beim Disassemblieren: " + err.message;
     }
+  }
 
-    function triggerDisassemble() {
-        const hexText = hexOutput.value.trim();
-        if (!hexText || !decoder) {
-            asmInput.value = "";
-            return;
-        }
+  asmArchSelect.addEventListener("change", updateAssemblerArch);
+  disArchSelect.addEventListener("change", updateDisassemblerArch);
 
-        try {
-            const cleanHex = hexText.replace(/(0x|,|\s+)/g, "");
-            
-            if (cleanHex.length % 2 !== 0) {
-                asmInput.value = "Ungültige Hex-Länge (muss gerade Anzahl an Zeichen sein).";
-                return;
-            }
+  document.querySelectorAll('input[name="endian"]').forEach(radio => {
+    radio.addEventListener("change", updateDisassemblerArch);
+  });
+  baseAddrInput.addEventListener("input", triggerDisassemble);
+  showAddresses.addEventListener("change", triggerDisassemble);
+  showBytes.addEventListener("change", triggerDisassemble);
+  showInstructions.addEventListener("change", triggerDisassemble);
 
-            const byteArray = [];
-            for (let i = 0; i < cleanHex.length; i += 2) {
-                byteArray.push(parseInt(cleanHex.substr(i, 2), 16));
-            }
-
-            const instructions = decoder.disasm(byteArray, 0x1000);
-            
-            if (instructions.length > 0) {
-                const asmLines = instructions.map(instr => {
-                    return `${instr.mnemonic} ${instr.op_str}`;
-                });
-                asmInput.value = asmLines.join("\n");
-            } else {
-                asmInput.value = "; Konnte keine gültigen Instruktionen dekodieren.";
-            }
-        } catch (err) {
-            asmInput.value = "; Fehler beim Disassemblieren: " + err.message;
-        }
-    }
-
-    archSelect.addEventListener("change", updateArchitecture);
-    asmInput.addEventListener("input", triggerAssemble);
-    hexOutput.addEventListener("input", triggerDisassemble);
+  asmInput.addEventListener("input", triggerAssemble);
+  disHexInput.addEventListener("input", triggerDisassemble);
 });

@@ -25,32 +25,82 @@
             <a class="back-link" href="../index.html">← Zurück zur Startseite</a>
 
             <section class="card">
-                <div class="assembler-controls">
-                    <label for="archSelect">Architektur:</label>
-                    <select id="archSelect">
-                        <option value="x64">x86 (64-Bit)</option>
-                        <option value="x32">x86 (32-Bit)</option>
-                        <option value="x16">x86 (16-Bit)</option>
-                        <option value="arm">ARM (Standard)</option>
-                        <option value="arm_thumb">ARM (Thumb-Modus)</option>
-                        <option value="aarch64">AArch64 (ARM 64-Bit)</option>
-                        <option value="mips32">Mips (32-Bit)</option>
-                        <option value="mips64">Mips (64-Bit)</option>
-                        <option value="ppc32">PowerPC (32-Bit)</option>
-                        <option value="ppc64">PowerPC (64-Bit)</option>
-                        <option value="sparc">Sparc</option>
-                    </select>
-                </div>
+                <div class="tool-section">
+                    <div class="assembler-controls">
+                        <label for="asmArchSelect">Assembler Architektur:</label>
+                        <select id="asmArchSelect">
+                            <option value="x64">x86 (64-Bit)</option>
+                            <option value="x32">x86 (32-Bit)</option>
+                            <option value="x16">x86 (16-Bit)</option>
+                            <option value="arm">ARM (Standard)</option>
+                            <option value="arm_thumb">ARM (Thumb-Modus)</option>
+                            <option value="aarch64">AArch64 (ARM 64-Bit)</option>
+                            <option value="mips32">Mips (32-Bit)</option>
+                            <option value="mips64">Mips (64-Bit)</option>
+                            <option value="ppc32">PowerPC (32-Bit)</option>
+                            <option value="ppc64">PowerPC (64-Bit)</option>
+                            <option value="sparc">Sparc</option>
+                        </select>
+                    </div>
 
-                <div class="assembler-workspace">
-                    <div class="editor-pane">
-                        <div class="pane-title">Assembly Code (Mnemonic)</div>
-                            <textarea id="asmInput" placeholder="z.B. mov eax, 1&#10;xor ebx, ebx"></textarea>
+                    <div class="assembler-workspace">
+                        <div class="editor-pane">
+                            <div class="pane-title">Assembly Code (Eingabe)</div>
+                            <textarea id="asmInput" placeholder="z.B. nop&#10;mov eax, 1"></textarea>
                         </div>
-        
-                    <div class="editor-pane">
-                        <div class="pane-title">Maschinencode (Hex)</div>
-                        <textarea id="hexOutput" placeholder="z.B. b8 01 00 00 00 31 db"></textarea>
+                        <div class="editor-pane">
+                            <div class="pane-title">Maschinencode (Hex-Ausgabe)</div>
+                            <textarea id="hexOutput" readonly placeholder="Generierter Hex-Code erscheint hier..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="tool-section">
+                    <div class="assembler-controls">
+                        <label for="disArchSelect">Disassembler Architektur:</label>
+                        <select id="disArchSelect">
+                            <option value="x64">x86 (64-Bit)</option>
+                            <option value="x32">x86 (32-Bit)</option>
+                            <option value="x16">x86 (16-Bit)</option>
+                            <option value="arm">ARM (Standard)</option>
+                            <option value="arm_thumb">ARM (Thumb-Modus)</option>
+                            <option value="aarch64">AArch64 (ARM 64-Bit)</option>
+                            <option value="mips32">Mips (32-Bit)</option>
+                            <option value="mips64">Mips (64-Bit)</option>
+                            <option value="ppc32">PowerPC (32-Bit)</option>
+                            <option value="ppc64">PowerPC (64-Bit)</option>
+                            <option value="sparc">Sparc</option>
+                        </select>
+                    </div>
+
+                    <div class="disassembler-options">
+                        <div class="option-group">
+                            <label><input type="radio" name="endian" value="le" checked> Little Endian</label>
+                            <label><input type="radio" name="endian" value="be"> Big Endian</label>
+                        </div>
+                        
+                        <div class="option-group base-addr-group">
+                            <input type="text" id="baseAddrInput" value="0x00000000">
+                            <span>Base addr</span>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label><input type="checkbox" id="showAddresses" checked> Addresses</label>
+                            <label><input type="checkbox" id="showBytes" checked> Bytecodes</label>
+                            <label><input type="checkbox" id="showInstructions" checked> Instructions</label>
+                        </div>
+                    </div>
+
+                    <div class="assembler-workspace">
+                        <div class="editor-pane">
+                            <div class="pane-title">Maschinencode (Hex-Eingabe)</div>
+                            <textarea id="disHexInput" placeholder="z.B. 90 B8 01 00 00 00"></textarea>
+                        </div> <div class="editor-pane">
+                            <div class="pane-title">Assembly Code</div>
+                            <textarea id="disAsmOutput" readonly placeholder="Dekodierter Assembly-Code erscheint hier..."></textarea>
+                        </div>
                     </div>
                 </div>
             </section>
