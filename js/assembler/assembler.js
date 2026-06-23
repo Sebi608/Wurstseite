@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 .map(b => b.toString(16).padStart(2, '0'))
                 .join('');
             }
-            lineParts.push(bytesStr.padEnd(16, ' '));
+            lineParts.push(bytesStr.padEnd(8, ' '));
           }
 
           if (showInstructions.checked) {
