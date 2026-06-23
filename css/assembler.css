@@ -1,0 +1,87 @@
+.assembler-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.assembler-controls label {
+    font-weight: bold;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+#archSelect {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 2px solid var(--secondary);
+    border-radius: 5px;
+    background-color: var(--card-dark);
+    color: white;
+    outline: none;
+    transition: 0.2s;
+}
+
+#archSelect:focus {
+    border-color: var(--primary);
+}
+
+.assembler-workspace {
+    display: flex;
+    gap: 20px;
+    min-height: 350px;
+}
+
+.editor-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.pane-title {
+    font-size: 1rem;
+    color: #ced4da;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.editor-pane textarea {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    color: #a2fb8f;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.editor-pane textarea:focus {
+    border-color: var(--accent);
+}
+
+#hexOutput {
+    color: #ff9f43;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .assembler-workspace {
+        flex-direction: column;
+    }
+    .editor-pane textarea {
+        min-height: 200px;
+    }
+    .assembler-controls {
+        flex-direction: column;
+    }
+}
