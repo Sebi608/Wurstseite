@@ -35,6 +35,7 @@
     display: flex;
     gap: 20px;
     min-height: 350px;
+    flex-direction: column;
 }
 
 .editor-pane {
@@ -56,6 +57,7 @@
     background: rgba(0, 0, 0, 0.3);
     border: 2px solid rgba(255, 255, 255, 0.05);
     border-radius: 8px;
+    min-height: 200px;
     padding: 15px;
     color: #a2fb8f;
     font-family: 'Courier New', Courier, monospace;
@@ -132,19 +134,12 @@
     user-select: none;
 }
 
-@media (max-width: 768px) {
-    .assembler-workspace {
-        flex-direction: column;
-    }
-    .editor-pane textarea {
-        min-height: 200px;
-    }
+@media (max-width: 600px) {
     .assembler-controls {
         flex-direction: column;
+        gap: 10px;
     }
-    .disassembler-options .option-group {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
+    .disassembler-options {
+        gap: 10px;
     }
 }
