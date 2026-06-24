@@ -16,6 +16,9 @@ body {
     color: var(--secondary);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 80px;
 }
 
 header {
@@ -47,6 +50,9 @@ footer {
     color: white;
     padding: 1rem 1rem; 
     text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 footer ul {
@@ -121,5 +127,4 @@ footer a:hover {
 
 .back-link:hover {
     color: var(--primary);
-
 }
