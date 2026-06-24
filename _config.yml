@@ -1,3 +1,15 @@
 plugins:
   - jekyll-sitemap
-permalink: pretty
+defaults:
+  - scope:
+      path: "impressum.html"
+    values:
+      sitemap: false
+  - scope:
+      path: "lehrer.html"
+    values:
+      sitemap: false
+  - scope:
+      path: "mitglieder"
+    values:
+      sitemap: false
