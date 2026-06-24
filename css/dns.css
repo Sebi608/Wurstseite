@@ -45,8 +45,8 @@
 
 .record-badge {
     display: inline-block;
-    background: var(--primary);
-    color: white;
+    background: #e2e8f0;
+    color: #4a5568;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 0.8rem;
@@ -59,6 +59,10 @@
     margin-top: 5px;
     color: #ced4da;
     font-size: 1.1rem;
+    
+    overflow-wrap: break-word;
+    word-break: break-word; 
+    hyphens: auto;
 }
 
 .status-msg {
@@ -66,6 +70,17 @@
     color: #888;
     font-style: italic;
 }
+
+.badge-a     { background: #2b6cb0; color: #fff; }
+.badge-aaaa  { background: #319795; color: #fff; }
+.badge-mx    { background: #b7791f; color: #fff; }
+.badge-txt   { background: #4a5568; color: #fff; }
+.badge-cname { background: #4c51bf; color: #fff; }
+.badge-ns    { background: #718096; color: #fff; }
+.badge-soa   { background: #e53e3e; color: #fff; }
+.badge-https { background: #3182ce; color: #fff; }
+.badge-dnskey{ background: #2d3748; color: #fff; }
+.badge-ds    { background: #9b2c2c; color: #fff; }
 
 @media (max-width: 480px) {
     .tool-ui {
