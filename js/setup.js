@@ -3,7 +3,7 @@ const isMitgliederSubpage = pathname.includes('/mitglieder/') && /\/mitglieder\/
 const basePath = isMitgliederSubpage ? '../../' : pathname.includes('/random-stuff/') || pathname.includes('/mitglieder/') ? '../' : '';
 
 function loadSidebarStyles() {
-    const stylesheetHref = `${basePath}css/seitenleiste.css`;
+    const stylesheetHref = `${basePath}css/setup.css`;
     const existingStylesheet = document.querySelector(`link[rel="stylesheet"][href="${stylesheetHref}"]`);
 
     if (existingStylesheet) {
@@ -51,4 +51,20 @@ function generateSidebar() {
     document.body.insertAdjacentHTML('afterbegin', sidebarHTML);
 }
 
-loadSidebarStyles().then(generateSidebar);
+function generateFooter() {
+    const footerHTML = `
+        <footer>
+            <ul>
+                <li><a href="${basePath}index.html">&copy; 2026 Team Wurstwasser</a></li>
+                <li><a href="${basePath}impressum.html">Impressum</a></li>
+            </ul>
+        </footer>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', footerHTML);
+}
+
+loadSidebarStyles().then(() => {
+    generateSidebar();
+    generateFooter();
+});

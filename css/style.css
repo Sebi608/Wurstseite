@@ -16,9 +16,6 @@ body {
     color: var(--secondary);
     line-height: 1.6;
     overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-    padding-bottom: 80px;
 }
 
 header {
@@ -43,36 +40,6 @@ h1 {
     color: #ced4da;
     font-size: 1.2rem;
     margin-top: 10px;
-}
-
-footer {
-    background: linear-gradient(135deg, var(--secondary), #000);
-    color: white;
-    padding: 1rem 1rem; 
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; 
-}
-
-footer li {
-    margin: 0.2rem 0; 
-}
-
-footer a {
-    text-decoration: none;
-    color: inherit;
-    font-size: 0.85rem; 
-}
-
-footer a:hover {
-    color: var(--primary);
 }
 
 .container {
