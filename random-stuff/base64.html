@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Base64 Decoder && Encoder | Team Wurstwasser</title>
+        <title>Base64 Decoder & Encoder | Team Wurstwasser</title>
         <link rel="icon" type="image/png" href="../img/Logo.png">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/base64.css">
@@ -13,7 +13,7 @@
 
     <body>
         <header>
-            <h1>Base64 Decoder && Encoder</h1>
+            <h1>Base64 Decoder & Encoder</h1>
             <p class="motto">"Der edle Tropfen unter den Abgründen"</p>
         </header>
 
@@ -31,8 +31,10 @@
                             <div class="pane-title">Klartext (Eingabe)</div>
                             <textarea id="encodeInput" placeholder="Gib hier Text ein oder ziehe eine Datei hierher..."></textarea>
                             
-                            <input type="file" id="encodeFile" style="display: none;">
-                            <button type="button" class="file-btn" onclick="document.getElementById('encodeFile').click()" style="margin-top: 8px; padding: 6px 12px; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fff;">Datei auswählen</button>
+                            <div id="uploadContainer">
+                                <input type="file" id="encodeFile">
+                                <button type="button" id="file-btn" onclick="document.getElementById('encodeFile').click()">Datei auswählen</button>
+                            </div>
                         </div>
                         <div class="crypto-pane">
                             <div class="pane-title">Base64 (Ausgabe)</div>
@@ -51,14 +53,15 @@
                     <div class="crypto-workspace">
                         <div class="crypto-pane">
                             <div class="pane-title">Base64 (Eingabe)</div>
-                            <textarea id="decodeInput" placeholder="Füge Base64 ein oder ziehe eine Datei hierher..."></textarea>
-                            
-                            <input type="file" id="decodeFile" style="display: none;">
-                            <button type="button" class="file-btn" onclick="document.getElementById('decodeFile').click()" style="margin-top: 8px; padding: 6px 12px; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fff;">Datei auswählen</button>
+                            <textarea id="decodeInput" placeholder="Füge einen Base64-String ein..."></textarea>
                         </div>
                         <div class="crypto-pane">
                             <div class="pane-title">Klartext (Ausgabe)</div>
                             <textarea id="decodeOutput" readonly placeholder="Der decodierte Klartext erscheint hier..."></textarea>
+                            
+                            <div id="downloadContainer">
+                                <button type="button" id="downloadBtn">Datei herunterladen</button>
+                            </div>
                         </div>
                     </div>
                 </div>

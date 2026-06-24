@@ -60,3 +60,33 @@
     color: #ff9f43;
     background: rgba(0, 0, 0, 0.4);
 }
+
+#encodeFile {
+    display: none;
+}
+
+#uploadContainer {
+    margin-top: 12px;
+}
+
+#downloadContainer {
+    margin-top: 12px;
+    display: none;
+}
+
+#file-btn, #downloadBtn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background: #28a745;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+#file-btn:hover, #downloadBtn:hover {
+    background: #218838;
+}
