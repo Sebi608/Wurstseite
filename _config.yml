@@ -10,6 +10,6 @@ defaults:
     values:
       sitemap: false
   - scope:
-      path: "mitglieder"
+      path: "mitglieder/"
     values:
       sitemap: false
