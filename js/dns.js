@@ -1,7 +1,61 @@
 const DNS_TYPES = [
-    'A', 'AAAA', 'CAA', 'CNAME', 'DNAME', 'DNSKEY', 'DS', 'HINFO',
-    'HTTPS', 'LOC', 'MX', 'NAPTR', 'NS', 'NSEC', 'NSEC3', 'NSEC3PARAM',
-    'PTR', 'RRSIG', 'SOA', 'SPF', 'SRV', 'SSHFP', 'SVCB', 'TLSA', 'TXT'
+    // Standard- & Web-Records
+    'A', 'AAAA', 'CAA', 'CNAME', 'DNAME', 'MX', 'NS', 'PTR', 'SOA', 'SRV', 'TXT', 
+    'HTTPS', 'SVCB', 'NAPTR', 'ALPN',
+
+    // DNSSEC & Sicherheit
+    'DNSKEY', 'DS', 'NSEC', 'NSEC3', 'NSEC3PARAM', 'RRSIG', 'SSHFP', 'TLSA', 
+    'CDNSKEY', 'CDS', 'CSYNC', 'IPSECKEY',
+
+    // Weitere von IANA registrierte Typen
+    '3',     // MD
+    '4',     // MF
+    '7',     // MB
+    '8',     // MG
+    '9',     // MR
+    '10',    // NULL
+    '11',    // WKS
+    '13',    // HINFO
+    '14',    // MINFO
+    '17',    // RP
+    '18',    // AFSDB
+    '19',    // X25
+    '20',    // ISDN
+    '21',    // RT
+    '22',    // NSAP
+    '23',    // NSAP-PTR
+    '24',    // SIG
+    '25',    // KEY
+    '26',    // PX
+    '29',    // LOC
+    '31',    // EID
+    '32',    // NIMLOC
+    '36',    // KX
+    '37',    // CERT
+    '38',    // A6
+    '40',    // SINK
+    '41',    // OPT
+    '42',    // APL
+    '49',    // DHCID
+    '55',    // HIP
+    '56',    // NINFO
+    '57',    // RKEY
+    '58',    // TALINK
+    '61',    // OPENPGPKEY
+    '99',    // SPF
+    '100',   // UINFO
+    '101',   // UID
+    '102',   // GID
+    '103',   // UNSPEC
+    '104',   // NID
+    '105',   // L32
+    '106',   // L64
+    '107',   // LP
+    '108',   // EUI48
+    '109',   // EUI64
+    '249',   // TKEY
+    '250',   // TSIG
+    '256'    // URI
 ];
 
 async function fetchRecord(domain, type) {
