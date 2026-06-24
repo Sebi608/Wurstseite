@@ -14,7 +14,6 @@ async function fetchRecord(domain, type) {
         }
         return [];
     } catch (e) {
-        console.error(`Fehler bei Typ ${type}:`, e);
         return null;
     }
 }
