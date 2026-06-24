@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /mitglieder
+Disallow: /impressium.html
+Disallow: /lehrer.html
+
+Sitemap: https://team-wurstwasser.com/sitemap.xml
