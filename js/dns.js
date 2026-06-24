@@ -1,10 +1,20 @@
+const DNS_TYPES = [
+    'A', 'AAAA', 'CAA', 'CNAME', 'DNAME', 'DNSKEY', 'DS', 'HINFO',
+    'HTTPS', 'LOC', 'MX', 'NAPTR', 'NS', 'NSEC', 'NSEC3', 'NSEC3PARAM',
+    'PTR', 'RRSIG', 'SOA', 'SPF', 'SRV', 'SSHFP', 'SVCB', 'TLSA', 'TXT'
+];
+
 async function fetchRecord(domain, type) {
     try {
         const response = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=${type}`);
         const data = await response.json();
-        return data.Answer ? data.Answer.map(r => r.data) : [];
+
+        if (data.Answer && data.Answer.length > 0) {
+            return data.Answer.map(r => r.data);
+        }
+        return [];
     } catch (e) {
-        console.error(e);
+        console.error(`Fehler bei Typ ${type}:`, e);
         return null;
     }
 }
@@ -20,37 +30,36 @@ async function resolveDomain() {
 
     resultDiv.innerHTML = '<div class="status-msg">Frage Google DNS ab...</div>';
 
-    const [ipv4Records, ipv6Records] = await Promise.all([
-        fetchRecord(domainInput, 'A'),
-        fetchRecord(domainInput, 'AAAA')
-    ]);
+    const results = await Promise.all(DNS_TYPES.map(type => fetchRecord(domainInput, type)));
 
-    if (ipv4Records === null && ipv6Records === null) {
+    if (results.every(res => res === null)) {
         resultDiv.innerHTML = '<div class="status-msg" style="color: var(--primary);">Fehler bei der DNS-Verbindung.</div>';
         return;
     }
 
     let outputHtml = '';
 
-    if (ipv4Records && ipv4Records.length > 0) {
-        outputHtml += `
-            <div class="result-item">
-                <div><span class="record-badge">A (IPv4)</span></div>
-                <div class="ip-list">${ipv4Records.join('<br>')}</div>
-            </div>`;
-    }
+    DNS_TYPES.forEach((type, index) => {
+        const records = results[index];
 
-    if (ipv6Records && ipv6Records.length > 0) {
-        outputHtml += `
-            <div class="result-item">
-                <div><span class="record-badge" style="background: var(--accent); color: var(--secondary);">AAAA (IPv6)</span></div>
-                <div class="ip-list">${ipv6Records.join('<br>')}</div>
-            </div>`;
-    }
+        if (records && records.length > 0) {
+
+            outputHtml += `
+                <div class="result-item">
+                    <div><span class="record-badge badge-${type.toLowerCase()}">${type}</span></div>
+                    <div class="ip-list">${records.map(r => escapeHtml(r)).join('<br>')}</div>
+                </div>
+            `;
+        }
+    });
 
     if (outputHtml === '') {
-        resultDiv.innerHTML = '<div class="status-msg" style="color: var(--accent);">Keine IP-Einträge für diese Domain gefunden.</div>';
+        resultDiv.innerHTML = '<div class="status-msg" style="color: var(--accent);">Keine DNS-Einträge für diese Domain gefunden.</div>';
     } else {
         resultDiv.innerHTML = outputHtml;
     }
+}
+
+function escapeHtml(string) {
+    return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
