@@ -1,0 +1,62 @@
+.crypto-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.crypto-controls label {
+    font-weight: bold;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.crypto-workspace {
+    display: flex;
+    gap: 20px;
+    min-height: 250px;
+    flex-direction: column;
+}
+
+.crypto-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.pane-title {
+    font-size: 1rem;
+    color: #ced4da;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.crypto-pane textarea {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    color: #a2fb8f;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+    min-height: 150px;
+}
+
+.crypto-pane textarea:focus {
+    border-color: var(--accent);
+}
+
+#encodeOutput, #decodeOutput {
+    color: #ff9f43;
+    background: rgba(0, 0, 0, 0.4);
+}
