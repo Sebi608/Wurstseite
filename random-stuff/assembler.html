@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Assembler & Disassembler | Team Wurstwasser</title>
+        <link rel="icon" type="image/png" href="../img/Logo.png">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/assembler.css">
+
+        <script src="../js/assembler/keystone.js"></script>
+        <script src="../js/assembler/capstone.js"></script>
+
+        <script src="../js/seitenleiste.js" defer></script>
+        <script src="../js/assembler/assembler.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>ASSEMBLER & DISASSEMBLER</h1>
+            <p class="motto">"Der edle Tropfen unter den Abgründen"</p>
+        </header>
+
+        <div class="container">
+            <a class="back-link" href="../index.html">← Zurück zur Startseite</a>
+
+            <section class="card">
+                <div class="tool-section">
+                    <div class="assembler-controls">
+                        <label for="asmArchSelect">Assembler Architektur:</label>
+                        <select id="asmArchSelect">
+                            <option value="x64">x86 (64-Bit)</option>
+                            <option value="x32">x86 (32-Bit)</option>
+                            <option value="x16">x86 (16-Bit)</option>
+                            <option value="arm">ARM (Standard)</option>
+                            <option value="arm_thumb">ARM (Thumb-Modus)</option>
+                            <option value="aarch64">AArch64 (ARM 64-Bit)</option>
+                            <option value="mips32">Mips (32-Bit)</option>
+                            <option value="mips64">Mips (64-Bit)</option>
+                            <option value="ppc32">PowerPC (32-Bit)</option>
+                            <option value="ppc64">PowerPC (64-Bit)</option>
+                            <option value="sparc">Sparc</option>
+                        </select>
+                    </div>
+
+                    <div class="assembler-workspace">
+                        <div class="editor-pane">
+                            <div class="pane-title">Assembly Code (Eingabe)</div>
+                            <textarea id="asmInput" placeholder="z.B. nop&#10;mov eax, 1"></textarea>
+                        </div>
+                        <div class="editor-pane">
+                            <div class="pane-title">Maschinencode (Hex-Ausgabe)</div>
+                            <textarea id="hexOutput" readonly placeholder="Generierter Hex-Code erscheint hier..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="tool-section">
+                    <div class="assembler-controls">
+                        <label for="disArchSelect">Disassembler Architektur:</label>
+                        <select id="disArchSelect">
+                            <option value="x64">x86 (64-Bit)</option>
+                            <option value="x32">x86 (32-Bit)</option>
+                            <option value="x16">x86 (16-Bit)</option>
+                            <option value="arm">ARM (Standard)</option>
+                            <option value="arm_thumb">ARM (Thumb-Modus)</option>
+                            <option value="aarch64">AArch64 (ARM 64-Bit)</option>
+                            <option value="mips32">Mips (32-Bit)</option>
+                            <option value="mips64">Mips (64-Bit)</option>
+                            <option value="ppc32">PowerPC (32-Bit)</option>
+                            <option value="ppc64">PowerPC (64-Bit)</option>
+                            <option value="sparc">Sparc</option>
+                        </select>
+                    </div>
+
+                    <div class="disassembler-options">
+                        <div class="option-group">
+                            <label><input type="radio" name="endian" value="le" checked> Little Endian</label>
+                            <label><input type="radio" name="endian" value="be"> Big Endian</label>
+                        </div>
+                        
+                        <div class="option-group base-addr-group">
+                            <input type="text" id="baseAddrInput" value="0x00000000">
+                            <span>Base addr</span>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label><input type="checkbox" id="showAddresses" checked> Addresses</label>
+                            <label><input type="checkbox" id="showBytes" checked> Bytecodes</label>
+                            <label><input type="checkbox" id="showInstructions" checked> Instructions</label>
+                        </div>
+                    </div>
+
+                    <div class="assembler-workspace">
+                        <div class="editor-pane">
+                            <div class="pane-title">Maschinencode (Hex-Eingabe)</div>
+                            <textarea id="disHexInput" placeholder="z.B. 90 B8 01 00 00 00"></textarea>
+                        </div> <div class="editor-pane">
+                            <div class="pane-title">Assembly Code</div>
+                            <textarea id="disAsmOutput" readonly placeholder="Dekodierter Assembly-Code erscheint hier..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <ul>
+                <li><a href="../index.html">&copy; 2026 Team Wurstwasser</a></li>
+                <li><a href="../impressum.html">Impressum</a></li>
+            </ul>
+        </footer>
+    </body>
+</html>

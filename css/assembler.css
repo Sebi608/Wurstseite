@@ -1,0 +1,145 @@
+.assembler-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.assembler-controls label {
+    font-weight: bold;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+#disArchSelect, #asmArchSelect {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 2px solid var(--secondary);
+    border-radius: 5px;
+    background-color: var(--card-dark);
+    color: white;
+    outline: none;
+    transition: 0.2s;
+}
+
+#disArchSelect:focus, #asmArchSelect:focus {
+    border-color: var(--primary);
+}
+
+.assembler-workspace {
+    display: flex;
+    gap: 20px;
+    min-height: 350px;
+    flex-direction: column;
+}
+
+.editor-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.pane-title {
+    font-size: 1rem;
+    color: #ced4da;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.editor-pane textarea {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    min-height: 200px;
+    padding: 15px;
+    color: #a2fb8f;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.editor-pane textarea:focus {
+    border-color: var(--accent);
+}
+
+#hexOutput, #disAsmOutput {
+    color: #ff9f43;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.disassembler-options {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.disassembler-options .option-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+#baseAddrInput {
+    width: 120px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+}
+
+#baseAddrInput:focus {
+    border-color: var(--primary);
+}
+
+.base-addr-group {
+    justify-content: center;
+    gap: 8px;
+}
+
+.base-addr-group span {
+    color: #ced4da;
+    font-size: 0.9rem;
+}
+
+.disassembler-options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #e9ecef;
+    font-size: 0.95rem;
+    user-select: none;
+}
+
+@media (max-width: 600px) {
+    .assembler-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .disassembler-options {
+        gap: 10px;
+    }
+}
