@@ -1,3 +1,4 @@
+url: "https://team-wurstwasser.com"
 plugins:
   - jekyll-sitemap
 defaults:
@@ -11,9 +12,5 @@ defaults:
       sitemap: false
   - scope:
       path: "mitglieder"
-    values:
-      sitemap: false
-  - scope:
-      path: "mitglieder/"
     values:
       sitemap: false
