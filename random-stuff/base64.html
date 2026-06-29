@@ -21,55 +21,57 @@
             <p class="motto">Codiere Texte und Dateien in Base64 oder decodiere sie zurück in Klartext:</p>
         </header>
 
-        <div class="container">
-           <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
+        <main>
+            <div class="container">
+                <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
 
-            <section class="card">
-                <div class="tool-section">
-                    <div class="crypto-controls">
-                        <label>Base64 Encoder</label>
-                    </div>
+                <section class="card">
+                    <div class="tool-section">
+                        <div class="crypto-controls">
+                            <label>Base64 Encoder</label>
+                        </div>
 
-                    <div class="crypto-workspace">
-                        <div class="crypto-pane">
-                            <div class="pane-title">Klartext (Eingabe)</div>
-                            <textarea id="encodeInput" placeholder="Gib hier Text ein oder ziehe eine Datei hierher..."></textarea>
-                            
-                            <div id="uploadContainer">
-                                <input type="file" id="encodeFile">
-                                <button type="button" id="file-btn" onclick="document.getElementById('encodeFile').click()">Datei auswählen</button>
+                        <div class="crypto-workspace">
+                            <div class="crypto-pane">
+                                <div class="pane-title">Klartext (Eingabe)</div>
+                                <textarea id="encodeInput" placeholder="Gib hier Text ein oder ziehe eine Datei hierher..."></textarea>
+                                
+                                <div id="uploadContainer">
+                                    <input type="file" id="encodeFile">
+                                    <button type="button" id="file-btn" onclick="document.getElementById('encodeFile').click()">Datei auswählen</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="crypto-pane">
-                            <div class="pane-title">Base64 (Ausgabe)</div>
-                            <textarea id="encodeOutput" readonly placeholder="Der codierte Base64-String erscheint hier..."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card">
-                <div class="tool-section">
-                    <div class="crypto-controls">
-                        <label>Base64 Decoder</label>
-                    </div>
-
-                    <div class="crypto-workspace">
-                        <div class="crypto-pane">
-                            <div class="pane-title">Base64 (Eingabe)</div>
-                            <textarea id="decodeInput" placeholder="Füge einen Base64-String ein..."></textarea>
-                        </div>
-                        <div class="crypto-pane">
-                            <div class="pane-title">Klartext (Ausgabe)</div>
-                            <textarea id="decodeOutput" readonly placeholder="Der decodierte Klartext erscheint hier..."></textarea>
-                            
-                            <div id="downloadContainer">
-                                <button type="button" id="downloadBtn">Datei herunterladen</button>
+                            <div class="crypto-pane">
+                                <div class="pane-title">Base64 (Ausgabe)</div>
+                                <textarea id="encodeOutput" readonly placeholder="Der codierte Base64-String erscheint hier..."></textarea>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+                </section>
+
+                <section class="card">
+                    <div class="tool-section">
+                        <div class="crypto-controls">
+                            <label>Base64 Decoder</label>
+                        </div>
+
+                        <div class="crypto-workspace">
+                            <div class="crypto-pane">
+                                <div class="pane-title">Base64 (Eingabe)</div>
+                                <textarea id="decodeInput" placeholder="Füge einen Base64-String ein..."></textarea>
+                            </div>
+                            <div class="crypto-pane">
+                                <div class="pane-title">Klartext (Ausgabe)</div>
+                                <textarea id="decodeOutput" readonly placeholder="Der decodierte Klartext erscheint hier..."></textarea>
+                                
+                                <div id="downloadContainer">
+                                    <button type="button" id="downloadBtn">Datei herunterladen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
     </body>
 </html>

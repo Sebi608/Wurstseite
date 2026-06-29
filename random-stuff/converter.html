@@ -14,50 +14,53 @@
         <script src="/js/setup.js" defer></script>
         <script src="/js/converter.js" defer></script>
     </head>
+    
     <body>
         <header>
             <h1>Zahlen-Konverter</h1>
             <p class="motto">Konvertiere Zahlen zwischen Binär, Dezimal, Hex und Oktal.</p>
         </header>
 
-        <div class="container">
-            <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
+        <main>
+            <div class="container">
+                <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
 
-            <section class="card">
-                <div class="converter-controls-group">
-                    <div class="converter-controls">
-                        <label for="baseSelect">Eingabe-Basis:</label>
-                        <select id="baseSelect">
-                            <option value="10">Dezimal</option>
-                            <option value="2">Binär</option>
-                            <option value="16">Hexadezimal</option>
-                            <option value="8">Oktal</option>
-                        </select>
+                <section class="card">
+                    <div class="converter-controls-group">
+                        <div class="converter-controls">
+                            <label for="baseSelect">Eingabe-Basis:</label>
+                            <select id="baseSelect">
+                                <option value="10">Dezimal</option>
+                                <option value="2">Binär</option>
+                                <option value="16">Hexadezimal</option>
+                                <option value="8">Oktal</option>
+                            </select>
+                        </div>
+
+                        <div class="converter-controls">
+                            <label for="outputBaseSelect">Ausgabe-Basis:</label>
+                            <select id="outputBaseSelect">
+                                <option value="10">Dezimal</option>
+                                <option value="2" selected>Binär</option>
+                                <option value="16">Hexadezimal</option>
+                                <option value="8">Oktal</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="converter-controls">
-                        <label for="outputBaseSelect">Ausgabe-Basis:</label>
-                        <select id="outputBaseSelect">
-                            <option value="10">Dezimal</option>
-                            <option value="2" selected>Binär</option>
-                            <option value="16">Hexadezimal</option>
-                            <option value="8">Oktal</option>
-                        </select>
+                    <div class="converter-workspace">
+                        <div class="converter-pane">
+                            <div class="pane-title">Eingabe (Zahl)</div>
+                            <textarea id="inputNumber" placeholder="Zahl eingeben..."></textarea>
+                        </div> 
+                        
+                        <div class="converter-pane">
+                            <div class="pane-title">Ergebnis</div>
+                            <textarea id="resultsOutput" readonly placeholder="Ergebnis..."></textarea>
+                        </div>
                     </div>
-                </div>
-
-                <div class="converter-workspace">
-                    <div class="converter-pane">
-                        <div class="pane-title">Eingabe (Zahl)</div>
-                        <textarea id="inputNumber" placeholder="Zahl eingeben..."></textarea>
-                    </div> 
-                    
-                    <div class="converter-pane">
-                        <div class="pane-title">Ergebnis</div>
-                        <textarea id="resultsOutput" readonly placeholder="Ergebnis..."></textarea>
-                    </div>
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
+        </main>
     </body>
 </html>
