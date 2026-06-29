@@ -21,42 +21,44 @@
             <p class="motto">Übersetze IP-Adressen live zwischen dem Binär- und Dezimalformat:</p>
         </header>
 
-        <div class="container">
-            <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
+        <main>
+            <div class="container">
+                <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
 
-            <section class="card">
-                <h2>Binär-Dezimal-Konverter</h2>
-                <p>Nutze die Eingabefelder oder klicke direkt auf die Tabellen-Bits, um Werte zu ändern.</p>
-                
-                <div class="ip-controls">
-                    <div class="ip-input-group">
-                        <label for="ipInput">IP-Adresse</label>
-                        <input type="text" id="ipInput" value="11111111.11111111.11111111.00000000" oninput="liveConvertIP()">
-                    </div>
-                    <div class="ip-input-group">
-                        <label for="modeSelect">Eingabe-Format</label>
-                        <select id="modeSelect" onchange="handleModeChange()">
-                            <option value="bin">Binär vorliegend</option>
-                            <option value="dec">Dezimal vorliegend</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="ip-error-message" id="errorOut"></div>
-
-                <div class="ip-output-box">
-                    <div class="ip-bar ip-bar-header" id="headerText">
-                        IP-Adresse in binär: 11111111.11111111.11111111.00000000
-                    </div>
+                <section class="card">
+                    <h2>Binär-Dezimal-Konverter</h2>
+                    <p>Nutze die Eingabefelder oder klicke direkt auf die Tabellen-Bits, um Werte zu ändern.</p>
                     
-                    <div class="ip-octets-grid" id="octetsContainer">
+                    <div class="ip-controls">
+                        <div class="ip-input-group">
+                            <label for="ipInput">IP-Adresse</label>
+                            <input type="text" id="ipInput" value="11111111.11111111.11111111.00000000" oninput="liveConvertIP()">
                         </div>
-
-                    <div class="ip-bar ip-bar-footer" id="footerText">
-                        IP-Adresse in dezimal: 255.255.255.0
+                        <div class="ip-input-group">
+                            <label for="modeSelect">Eingabe-Format</label>
+                            <select id="modeSelect" onchange="handleModeChange()">
+                                <option value="bin">Binär vorliegend</option>
+                                <option value="dec">Dezimal vorliegend</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-            </section>
-        </div>
+
+                    <div class="ip-error-message" id="errorOut"></div>
+
+                    <div class="ip-output-box">
+                        <div class="ip-bar ip-bar-header" id="headerText">
+                            IP-Adresse in binär: 11111111.11111111.11111111.00000000
+                        </div>
+                        
+                        <div class="ip-octets-grid" id="octetsContainer">
+                            </div>
+
+                        <div class="ip-bar ip-bar-footer" id="footerText">
+                            IP-Adresse in dezimal: 255.255.255.0
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
     </body>
 </html>

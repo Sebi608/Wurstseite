@@ -28,7 +28,7 @@ function generateSidebar() {
         <nav class="sidebar">
             <div class="sidebar-header">
                 <a href="/index.html" class="sidebar-link">
-                    <img class="sidebar-logo" src="/img/Logo.png">
+                    <img class="sidebar-logo" alt="Logo" src="/img/Logo.png">
                     <span class="sidebar-span">Menü</span>
                 </a>
             </div>
