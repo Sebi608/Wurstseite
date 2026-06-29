@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Ein einfacher Subnetz-Rechner zum Aufteilen von IP-Bereichen in Subnetze.">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="https://team-wurstwasser.com/img/Logo.png">
+        <title>Subnetz-Rechner | Team Wurstwasser</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
+        
+        <script src="/js/setup.js" defer></script>
+
+        <style>
+            :root {
+                --primary: #ff4757;
+                --secondary: #2f3542;
+                --accent: #ffa502;
+                --bg: #f1f2f6;
+                --card-dark: #24292e;
+                --section-gap: 20px;
+            }
+
+            * { box-sizing: border-box; }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                background-color: var(--bg);
+                color: var(--secondary);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            header {
+                background: linear-gradient(135deg, var(--secondary), #000);
+                color: white;
+                padding: 5rem 1rem;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            }
+
+            h1 {
+                font-size: clamp(2rem, 8vw, 3.5rem);
+                margin: 0;
+                text-transform: uppercase;
+                letter-spacing: 4px;
+                color: var(--accent);
+                text-shadow: 3px 3px 0px var(--primary);
+            }
+
+            .motto {
+                font-style: italic;
+                color: #ced4da;
+                font-size: 1.2rem;
+                margin-top: 10px;
+            }
+
+            .container {
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .card {
+                background: var(--card-dark);
+                color: white;
+                border-radius: 15px;
+                padding: 2.5rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+                margin-bottom: var(--section-gap);
+                text-align: center;
+                border-bottom: 4px solid var(--primary);
+            }
+
+            .card h2 {
+                color: var(--accent);
+                margin-top: 0;
+            }
+
+            .back-link {
+                display: inline-block;
+                color: var(--secondary);
+                text-decoration: none;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .back-link:hover {
+                color: var(--primary);
+            }
+
+            .ip-controls {
+                display: flex;
+                gap: 15px;
+                margin: 25px 0 10px 0;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .ip-input-group {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .ip-input-group label {
+                font-size: 0.85rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--accent);
+                letter-spacing: 1px;
+            }
+
+            .ip-controls input[type="text"], 
+            .ip-controls select,
+            .ip-controls input[type="number"] {
+                padding: 10px 15px;
+                font-size: 1rem;
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                font-family: monospace;
+                background-color: rgba(0, 0, 0, 0.2);
+                color: white;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+
+            .ip-controls input[type="text"]:focus, 
+            .ip-controls select:focus,
+            .ip-controls input[type="number"]:focus {
+                border-color: var(--primary);
+            }
+
+            .ip-controls input[type="number"] {
+                width: 100%;
+                max-width: 180px;
+            }
+
+            .ip-error-message {
+                color: var(--primary);
+                font-size: 0.95rem;
+                font-weight: bold;
+                min-height: 25px;
+                margin-bottom: 15px;
+                text-shadow: 1px 1px 0px #000;
+            }
+
+            .ip-output-box {
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                overflow: hidden;
+                background: rgba(0, 0, 0, 0.15);
+                margin-top: 20px;
+            }
+
+            .ip-bar {
+                background: linear-gradient(90deg, var(--secondary), #131619);
+                padding: 12px;
+                text-align: center;
+                font-weight: bold;
+                font-family: monospace;
+                font-size: 1.05rem;
+                transition: color 0.2s;
+            }
+
+            .ip-bar-header {
+                border-bottom: 2px solid var(--primary);
+                color: var(--accent);
+            }
+
+            .ip-bar-footer {
+                border-top: 2px solid var(--primary);
+                color: #fff;
+            }
+
+
+
+
+
+
+
+
+
+
+
+            
+            .subnet-summary-grid {
+                padding: 20px; 
+                border-bottom: 2px solid var(--primary); 
+                line-height: 1.8;
+                text-align: left;
+                background: rgba(0,0,0,0.2);
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .subnet-summary-item strong {
+                color: var(--accent);
+                display: block;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .subnet-summary-item span {
+                font-family: monospace;
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+
+            .subnet-table-wrapper {
+                padding: 15px;
+                overflow-x: auto;
+            }
+
+            .subnet-table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+            }
+
+            .subnet-table th, 
+            .subnet-table td {
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+
+            .subnet-table th {
+                background: rgba(255, 255, 255, 0.05);
+                color: #ced4da;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+            }
+
+            .subnet-table tbody tr {
+                transition: background 0.2s;
+            }
+
+            .subnet-table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.03);
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>Subnetz-Rechner</h1>
+            <p class="motto">Berechne Subnetzmasken, Netz-IDs, CIDR und Host-Bereiche live:</p>
+        </header>
+
+        <div class="container">
+            <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
+
+            <section class="card">
+                <h2>Subnetz- & Host-Kalkulator</h2>
+                <p>Gib deine Basis-IP mit CIDR ein und wähle, wie du dein Netz aufteilen möchtest.</p>
+                
+                <div class="ip-controls">
+                    <div class="ip-input-group">
+                        <label for="baseIpInput">Basis-IP / Start-IP</label>
+                        <input type="text" id="baseIpInput" value="192.168.1.0" oninput="liveCalculateSubnets()">
+                    </div>
+                    
+                    <div class="ip-input-group">
+                        <label for="cidrSelect">Aktuelle CIDR (Suffix)</label>
+                        <select id="cidrSelect" onchange="liveCalculateSubnets()">
+                            </select>
+                    </div>
+
+                    <div class="ip-input-group">
+                        <label for="calcModeSelect">Aufteilen nach</label>
+                        <select id="calcModeSelect" onchange="handleCalcModeChange()">
+                            <option value="subnets">Anzahl gewünschter Subnetze</option>
+                            <option value="hosts">Anzahl Hosts pro Subnetz</option>
+                        </select>
+                    </div>
+
+                    <div class="ip-input-group">
+                        <label id="dynamicLabel" for="dynamicValueInput">Gewünschte Subnetze</label>
+                        <input type="number" id="dynamicValueInput" value="4" min="1" oninput="liveCalculateSubnets()">
+                    </div>
+                </div>
+
+                <div class="ip-error-message" id="errorOut"></div>
+
+                <div class="ip-output-box">
+                    <div class="ip-bar ip-bar-header">
+                        Ergebnis der Subnetz-Aufteilung
+                    </div>
+                    
+                    <div class="subnet-summary-grid">
+                        <div class="subnet-summary-item">
+                            <strong>Neue Subnetzmaske</strong>
+                            <span id="resSubnetMask">255.255.255.192</span>
+                        </div>
+                        <div class="subnet-summary-item">
+                            <strong>Neue CIDR</strong>
+                            <span id="resCidr">/26</span>
+                        </div>
+                        <div class="subnet-summary-item">
+                            <strong>Nutzbare Hosts pro Netz</strong>
+                            <span id="resMaxHosts">62</span>
+                        </div>
+                    </div>
+
+                    <div class="subnet-table-wrapper" id="subnetListContainer">
+                        </div>
+
+                    <div class="ip-bar ip-bar-footer">
+                        Berechnung abgeschlossen.
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script>
+            // Umschaltung Eingabe-Modus (Subnetze vs. Hosts)
+            function handleCalcModeChange() {
+                const mode = document.getElementById('calcModeSelect').value;
+                const label = document.getElementById('dynamicLabel');
+                const input = document.getElementById('dynamicValueInput');
+
+                if (mode === 'subnets') {
+                    label.innerText = "Gewünschte Subnetze";
+                    input.value = "4";
+                } else {
+                    label.innerText = "Hosts pro Subnetz";
+                    input.value = "30";
+                }
+                liveCalculateSubnets();
+            }
+
+            // Berechnung
+            function liveCalculateSubnets() {
+                const baseIpStr = document.getElementById('baseIpInput').value.trim();
+                const baseCidr = parseInt(document.getElementById('cidrSelect').value, 10);
+                const mode = document.getElementById('calcModeSelect').value;
+                const reqValue = parseInt(document.getElementById('dynamicValueInput').value, 10);
+                
+                const errorOut = document.getElementById('errorOut');
+                const listContainer = document.getElementById('subnetListContainer');
+                errorOut.innerText = "";
+
+                // Validierung Basis-IP
+                const parts = baseIpStr.split('.');
+                if (parts.length !== 4) {
+                    errorOut.innerText = "Hinweis: Eine IP-Adresse benötigt genau 4 Oktette, getrennt durch Punkte.";
+                    return;
+                }
+
+                let ipNum = 0;
+                for (let i = 0; i < 4; i++) {
+                    let val = parseInt(parts[i], 10);
+                    if (isNaN(val) || val < 0 || val > 255 || !/^\d+$/.test(parts[i])) {
+                        errorOut.innerText = `Fehler im ${i+1}. Oktett der Basis-IP.`;
+                        return;
+                    }
+                    ipNum = (ipNum << 8) + val;
+                }
+
+                if (isNaN(reqValue) || reqValue <= 0) {
+                    errorOut.innerText = "Bitte gib einen gültigen Wert größer als 0 ein.";
+                    return;
+                }
+
+                // Berechnung benötigte Zusatz-Bits
+                let additionalBits = 0;
+                if (mode === 'subnets') {
+                    while ((1 << additionalBits) < reqValue) {
+                        additionalBits++;
+                    }
+                } else {
+                    let hostBitsNeeded = 0;
+                    while ((1 << hostBitsNeeded) < (reqValue + 2)) {
+                        hostBitsNeeded++;
+                    }
+                    additionalBits = (32 - baseCidr) - hostBitsNeeded;
+                }
+
+                const newCidr = baseCidr + additionalBits;
+
+                // Validierung Grenzen
+                if (newCidr > 32 || additionalBits < 0) {
+                    errorOut.innerText = "Das gewählte Netz ist zu klein für diese Aufteilung!";
+                    return;
+                }
+                if (newCidr === 31 || newCidr === 32) {
+                    errorOut.innerText = "CIDR /31 und /32 bieten keinen Platz für nutzbare Host-Bereiche.";
+                    return;
+                }
+
+                // Subnetzmaske berechnen
+                let maskNum = 0xFFFFFFFF << (32 - newCidr);
+                let maskStr = [
+                    (maskNum >>> 24) & 255,
+                    (maskNum >>> 16) & 255,
+                    (maskNum >>> 8) & 255,
+                    maskNum & 255
+                ].join('.');
+
+                const totalHosts = (1 << (32 - newCidr)) - 2;
+
+                // UI Updates der Kopfdaten
+                document.getElementById('resSubnetMask').innerText = maskStr;
+                document.getElementById('resCidr').innerText = `/${newCidr}`;
+                document.getElementById('resMaxHosts').innerText = totalHosts;
+
+                // Subnetz-Tabelle
+                const numSubnets = 1 << additionalBits;
+                const subnetSize = 1 << (32 - newCidr);
+                
+                // Basis-IP auf korrekten Netzwerkanfang maskieren
+                let currentNetNum = (ipNum & (0xFFFFFFFF << (32 - baseCidr))) >>> 0;
+
+                let html = `
+                    <table class="subnet-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Netz-ID / CIDR</th>
+                                <th>Nutzbarer Host-Bereich</th>
+                                <th>Broadcast</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                // Performance maximal 64 Einträge
+                const displayLimit = Math.min(numSubnets, 64);
+                for (let i = 0; i < displayLimit; i++) {
+                    let netId = numToIp(currentNetNum);
+                    let firstHost = numToIp(currentNetNum + 1);
+                    let lastHost = numToIp(currentNetNum + subnetSize - 2);
+                    let broadcast = numToIp(currentNetNum + subnetSize - 1);
+
+                    html += `
+                        <tr>
+                            <td><strong>${i + 1}</strong></td>
+                            <td style="color: var(--accent); font-family: monospace;">${netId} /${newCidr}</td>
+                            <td style="font-family: monospace;">${firstHost} - ${lastHost}</td>
+                            <td style="color: var(--primary); font-family: monospace;">${broadcast}</td>
+                        </tr>
+                    `;
+                    currentNetNum += subnetSize;
+                }
+
+                html += `</tbody></table>`;
+
+                if (numSubnets > 64) {
+                    html += `<p style="margin-top: 15px; opacity: 0.6; font-size: 0.9rem; text-align: center;">... und ${numSubnets - 64} weitere Subnetze wurden aus Performancegründen nicht gelistet.</p>`;
+                }
+
+                listContainer.innerHTML = html;
+            }
+
+            function numToIp(num) {
+                return [
+                    (num >>> 24) & 255,
+                    (num >>> 16) & 255,
+                    (num >>> 8) & 255,
+                    num & 255
+                ].join('.');
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const cidrSelect = document.getElementById('cidrSelect');
+                if (cidrSelect) {
+                    cidrSelect.innerHTML = "";
+                    for (let i = 8; i <= 30; i++) {
+                        let maskNum = 0xFFFFFFFF << (32 - i);
+                        let maskStr = [(maskNum >>> 24) & 255, (maskNum >>> 16) & 255, (maskNum >>> 8) & 255, maskNum & 255].join('.');
+                        let opt = document.createElement('option');
+                        opt.value = i;
+                        opt.innerText = `/${i} (${maskStr})`;
+                        if (i === 24) opt.selected = true;
+                        cidrSelect.appendChild(opt);
+                    }
+                }
+                liveCalculateSubnets();
+            });
+        </script>
+    </body>
+</html>
