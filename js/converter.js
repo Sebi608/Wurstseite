@@ -19,7 +19,7 @@ const updateConverter = () => {
         
         resultsOutput.innerText = result;
     } else {
-        resultsOutput.innerText = "";
+        resultsOutput.innerText = "Fehlerhafte Eingabe. Bitte überprüfe die Zahl und die Basis.";
     }
 };
 
