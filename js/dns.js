@@ -1,61 +1,12 @@
 const DNS_TYPES = [
-    // Standard- & Web-Records
     'A', 'AAAA', 'CAA', 'CNAME', 'DNAME', 'MX', 'NS', 'PTR', 'SOA', 'SRV', 'TXT', 
     'HTTPS', 'SVCB', 'NAPTR', 'ALPN',
-
-    // DNSSEC & Sicherheit
     'DNSKEY', 'DS', 'NSEC', 'NSEC3', 'NSEC3PARAM', 'RRSIG', 'SSHFP', 'TLSA', 
     'CDNSKEY', 'CDS', 'CSYNC', 'IPSECKEY',
-
-    // Weitere von IANA registrierte Typen
-    '3',     // MD
-    '4',     // MF
-    '7',     // MB
-    '8',     // MG
-    '9',     // MR
-    '10',    // NULL
-    '11',    // WKS
-    '13',    // HINFO
-    '14',    // MINFO
-    '17',    // RP
-    '18',    // AFSDB
-    '19',    // X25
-    '20',    // ISDN
-    '21',    // RT
-    '22',    // NSAP
-    '23',    // NSAP-PTR
-    '24',    // SIG
-    '25',    // KEY
-    '26',    // PX
-    '29',    // LOC
-    '31',    // EID
-    '32',    // NIMLOC
-    '36',    // KX
-    '37',    // CERT
-    '38',    // A6
-    '40',    // SINK
-    '41',    // OPT
-    '42',    // APL
-    '49',    // DHCID
-    '55',    // HIP
-    '56',    // NINFO
-    '57',    // RKEY
-    '58',    // TALINK
-    '61',    // OPENPGPKEY
-    '99',    // SPF
-    '100',   // UINFO
-    '101',   // UID
-    '102',   // GID
-    '103',   // UNSPEC
-    '104',   // NID
-    '105',   // L32
-    '106',   // L64
-    '107',   // LP
-    '108',   // EUI48
-    '109',   // EUI64
-    '249',   // TKEY
-    '250',   // TSIG
-    '256'    // URI
+    '3', '4', '7', '8', '9', '10', '11', '13', '14', '17', '18', '19', '20', 
+    '21', '22', '23', '24', '25', '26', '29', '31', '32', '36', '37', '38', 
+    '40', '41', '42', '49', '55', '56', '57', '58', '61', '99', '100', '101', 
+    '102', '103', '104', '105', '106', '107', '108', '109', '249', '250', '256'
 ];
 
 async function fetchRecord(domain, type) {
@@ -75,6 +26,11 @@ async function fetchRecord(domain, type) {
 async function resolveDomain() {
     const domainInput = document.getElementById('domainInput').value.trim();
     const resultDiv = document.getElementById('result');
+    const geoContainer = document.getElementById('geoContainer');
+
+    if (geoContainer) {
+        geoContainer.style.display = 'none';
+    }
 
     if (!domainInput) {
         resultDiv.innerHTML = '<div class="status-msg" style="color: var(--primary);">Bitte gib eine gültige Domain ein.</div>';
@@ -91,11 +47,15 @@ async function resolveDomain() {
     }
 
     let outputHtml = '';
+    let foundIPv4 = null;
 
     DNS_TYPES.forEach((type, index) => {
         const records = results[index];
 
         if (records && records.length > 0) {
+            if (type === 'A' && !foundIPv4) {
+                foundIPv4 = records[0];
+            }
 
             outputHtml += `
                 <div class="result-item">
@@ -110,6 +70,41 @@ async function resolveDomain() {
         resultDiv.innerHTML = '<div class="status-msg" style="color: var(--accent);">Keine DNS-Einträge für diese Domain gefunden.</div>';
     } else {
         resultDiv.innerHTML = outputHtml;
+        if (foundIPv4) {
+            fetchIPDetails(foundIPv4);
+        }
+    }
+}
+
+async function fetchIPDetails(ipAddress) {
+    const geoContainer = document.getElementById('geoContainer');
+    if (!geoContainer) return;
+
+    try {
+        const response = await fetch(`https://ipapi.co/${ipAddress}/json/`);
+        const data = await response.json();
+
+        if (!data.error) {
+            document.getElementById('geoCity').innerText = data.city || '-';
+            document.getElementById('geoRegion').innerText = data.region || '-';
+            document.getElementById('geoCountry').innerText = `${data.country_name} (${data.country_code})`;
+            document.getElementById('geoZip').innerText = data.postal || '-';
+            document.getElementById('geoTimezone').innerText = data.timezone || '-';
+            document.getElementById('geoIsp').innerText = data.org || '-';
+            document.getElementById('geoAs').innerText = data.asn || '-';
+
+            const mapFrame = document.getElementById('mapFrame');
+            if (mapFrame) {
+                mapFrame.src = `https://maps.google.com/maps?q=${data.latitude},${data.longitude}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+            }
+
+            geoContainer.style.display = 'grid';
+        } else {
+            geoContainer.style.display = 'none';
+        }
+    } catch (error) {
+        console.error(error);
+        geoContainer.style.display = 'none';
     }
 }
 
