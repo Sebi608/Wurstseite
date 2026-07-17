@@ -75,6 +75,11 @@ async function fetchRecord(domain, type) {
 async function resolveDomain() {
     const domainInput = document.getElementById('domainInput').value.trim();
     const resultDiv = document.getElementById('result');
+    const geoContainer = document.getElementById('geoContainer');
+
+    if (geoContainer) {
+        geoContainer.style.display = 'none';
+    }
 
     if (!domainInput) {
         resultDiv.innerHTML = '<div class="status-msg" style="color: var(--primary);">Bitte gib eine gültige Domain ein.</div>';
@@ -91,11 +96,15 @@ async function resolveDomain() {
     }
 
     let outputHtml = '';
+    let foundIPv4 = null;
 
     DNS_TYPES.forEach((type, index) => {
         const records = results[index];
 
         if (records && records.length > 0) {
+            if (type === 'A' && !foundIPv4) {
+                foundIPv4 = records[0];
+            }
 
             outputHtml += `
                 <div class="result-item">
@@ -110,6 +119,41 @@ async function resolveDomain() {
         resultDiv.innerHTML = '<div class="status-msg" style="color: var(--accent);">Keine DNS-Einträge für diese Domain gefunden.</div>';
     } else {
         resultDiv.innerHTML = outputHtml;
+        if (foundIPv4) {
+            fetchIPDetails(foundIPv4);
+        }
+    }
+}
+
+async function fetchIPDetails(ipAddress) {
+    const geoContainer = document.getElementById('geoContainer');
+    if (!geoContainer) return;
+
+    try {
+        const response = await fetch(`https://ipapi.co/${ipAddress}/json/`);
+        const data = await response.json();
+
+        if (!data.error) {
+            document.getElementById('geoCity').innerText = data.city || '-';
+            document.getElementById('geoRegion').innerText = data.region || '-';
+            document.getElementById('geoCountry').innerText = `${data.country_name} (${data.country_code})`;
+            document.getElementById('geoZip').innerText = data.postal || '-';
+            document.getElementById('geoTimezone').innerText = data.timezone || '-';
+            document.getElementById('geoIsp').innerText = data.org || '-';
+            document.getElementById('geoAs').innerText = data.asn || '-';
+
+            const mapFrame = document.getElementById('mapFrame');
+            if (mapFrame) {
+                mapFrame.src = `https://maps.google.com/maps?q=${data.latitude},${data.longitude}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+            }
+
+            geoContainer.style.display = 'grid';
+        } else {
+            geoContainer.style.display = 'none';
+        }
+    } catch (error) {
+        console.error(error);
+        geoContainer.style.display = 'none';
     }
 }
 

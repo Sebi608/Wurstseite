@@ -18,7 +18,7 @@
     <body>
         <header>
             <h1>DNS Lookup</h1>
-            <p class="motto">Wandle eine Domain live in ihre IPv4- und IPv6-Adressen um:</p>
+            <p class="motto">Finde mehr über eine Domain heraus:</p>
         </header>
 
         <div class="container">
@@ -29,6 +29,25 @@
                 <div class="tool-ui">
                     <input type="text" id="domainInput" class="input-field" placeholder="z. B. team-wurstwasser.com" onkeydown="if(event.key === 'Enter') resolveDomain()">
                     <button onclick="resolveDomain()" class="btn" style="margin-top: 0;">Abfragen</button>
+                </div>
+                
+                <div id="geoContainer" class="geo-container" style="display: none;">
+                    <div class="geo-details-box">
+                        <h3>Ergebnisse:</h3>
+                        <table>
+                            <tr><td><strong>Stadt:</strong></td><td id="geoCity">-</td></tr>
+                            <tr><td><strong>Bundesland/Region:</strong></td><td id="geoRegion">-</td></tr>
+                            <tr><td><strong>Land:</strong></td><td id="geoCountry">-</td></tr>
+                            <tr><td><strong>Postleitzahl:</strong></td><td id="geoZip">-</td></tr>
+                            <tr><td><strong>Zeitzone:</strong></td><td id="geoTimezone">-</td></tr>
+                            <tr><td><strong>Anbieter:</strong></td><td id="geoIsp">-</td></tr>
+                            <tr><td><strong>ASN:</strong></td><td id="geoAs">-</td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="map-box">
+                        <iframe id="mapFrame" src="" allowfullscreen></iframe>
+                    </div>
                 </div>
 
                 <div id="result" class="result-box">
