@@ -1,61 +1,92 @@
 const DNS_TYPES = [
-    // Standard- & Web-Records
-    'A', 'AAAA', 'CAA', 'CNAME', 'DNAME', 'MX', 'NS', 'PTR', 'SOA', 'SRV', 'TXT', 
-    'HTTPS', 'SVCB', 'NAPTR', 'ALPN',
+  // --- Standard & Core (RFC 1035 & neuere) ---
+  'A',           // Host Address (IPv4)
+  'AAAA',        // IPv6 Address
+  'CNAME',       // Canonical Name for an Alias
+  'MX',          // Mail Exchange
+  'NS',          // Name Server
+  'PTR',         // Pointer Record (Reverse DNS)
+  'SOA',         // Start of Authority
+  'TXT',         // Text Record (oft für SPF, DKIM, DMARC)
 
-    // DNSSEC & Sicherheit
-    'DNSKEY', 'DS', 'NSEC', 'NSEC3', 'NSEC3PARAM', 'RRSIG', 'SSHFP', 'TLSA', 
-    'CDNSKEY', 'CDS', 'CSYNC', 'IPSECKEY',
+  // --- Services, Routing & Web ---
+  'SRV',         // Service Locator
+  'CAA',         // Certification Authority Authorization
+  'NAPTR',       // Naming Authority Pointer
+  'HTTPS',       // HTTPS Service Binding (modern)
+  'SVCB',        // Service Binding (modern)
+  'URI',         // Uniform Resource Identifier
 
-    // Weitere von IANA registrierte Typen
-    '3',     // MD
-    '4',     // MF
-    '7',     // MB
-    '8',     // MG
-    '9',     // MR
-    '10',    // NULL
-    '11',    // WKS
-    '13',    // HINFO
-    '14',    // MINFO
-    '17',    // RP
-    '18',    // AFSDB
-    '19',    // X25
-    '20',    // ISDN
-    '21',    // RT
-    '22',    // NSAP
-    '23',    // NSAP-PTR
-    '24',    // SIG
-    '25',    // KEY
-    '26',    // PX
-    '29',    // LOC
-    '31',    // EID
-    '32',    // NIMLOC
-    '36',    // KX
-    '37',    // CERT
-    '38',    // A6
-    '40',    // SINK
-    '41',    // OPT
-    '42',    // APL
-    '49',    // DHCID
-    '55',    // HIP
-    '56',    // NINFO
-    '57',    // RKEY
-    '58',    // TALINK
-    '61',    // OPENPGPKEY
-    '99',    // SPF
-    '100',   // UINFO
-    '101',   // UID
-    '102',   // GID
-    '103',   // UNSPEC
-    '104',   // NID
-    '105',   // L32
-    '106',   // L64
-    '107',   // LP
-    '108',   // EUI48
-    '109',   // EUI64
-    '249',   // TKEY
-    '250',   // TSIG
-    '256'    // URI
+  // --- Sicherheit & DNSSEC ---
+  'DNSKEY',      // DNSSEC Public Key
+  'DS',          // Delegation Signer
+  'CDNSKEY',     // Child DNSKEY
+  'CDS',         // Child DS
+  'NSEC',        // Next Secure
+  'NSEC3',       // Next Secure v3
+  'NSEC3PARAM',  // NSEC3 Parameters
+  'RRSIG',       // RRset Signature
+  'TLSA',        // TLSA Certificate Association (DANE)
+  'SMIMEA',      // S/MIME Certificate Association
+  'SSHFP',       // SSH Public Key Fingerprint
+  'IPSECKEY',    // IPsec Key
+  'CERT',        // Certificate / CRL
+  'OPENPGPKEY',  // OpenPGP Public Key
+  'TA',          // Trust Anchor
+  'DLV',         // DNSSEC Lookaside Validation (historisch)
+
+  // --- Erweiterte Delegation & Identifikation ---
+  'DNAME',       // Delegation Name (Alias für ganze Subtrees)
+  'AFSDB',       // AFS Data Base Location
+  'APL',         // Address Prefix List
+  'KX',          // Key Exchanger
+  'RP',          // Responsible Person
+  'RT',          // Route Through
+  'LOC',         // Location Information (Koordinaten)
+  'HINFO',       // Host Information (CPU/OS)
+  'MINFO',       // Mailbox or Mail List Information
+  'DHCID',       // DHCP Identifier
+  'EUI48',       // MAC Address (48-bit)
+  'EUI64',       // MAC Address (64-bit)
+
+  // --- Zonentransfer, Updates & Pseudo-Records ---
+  'AXFR',        // Full Zone Transfer (Query-Typ)
+  'IXFR',        // Incremental Zone Transfer (Query-Typ)
+  'OPT',         // Option (EDNS0)
+  'TSIG',        // Transaction Signature
+  'TKEY',        // Transaction Key
+  'ANY',         // All Cached Records (Query-Typ, oft `*` genannt)
+  'CSYNC',       // Child-to-Parent Synchronization
+  'ZONEMD',      // Message Digests for DNS Zones
+
+  // --- Veraltet / Obsolete (aber noch im IANA-Standard) ---
+  'MD',          // Mail Destination (ersetzt durch MX)
+  'MF',          // Mail Forwarder (ersetzt durch MX)
+  'MAILA',       // Mail Routing Information
+  'MAILB',       // Mailbox-related Records
+  'MB',          // Mailbox Domain Name
+  'MG',          // Mail Group Member
+  'MR',          // Mail Rename Domain Name
+  'NULL',        // Null Record (experimentell)
+  'WKS',         // Well Known Service Information
+  'X25',         // X.25 PSDN Address
+  'ISDN',        // ISDN Address
+  'NSAP',        // NSAP Address
+  'NSAP-PTR',    // NSAP Pointer
+  'SIG',         // Security Signature (ersetzt durch RRSIG)
+  'KEY',         // Security Key (ersetzt durch DNSKEY)
+  'PX',          // X.400 Mail Mapping
+  'GPOS',        // Geographical Position (ersetzt durch LOC)
+  'NXT',         // Next Domain (ersetzt durch NSEC)
+  'A6',          // IPv6 Address (ersetzt durch AAAA)
+  'NINFO',       // Zone Status Information
+  'RKEY',        // RKEY (Kryptografie)
+  'TALINK',      // Trust Anchor Link
+  'NID',         // Node Identifier
+  'L32',         // Locator 32-bit
+  'L64',         // Locator 64-bit
+  'LP',          // Locator Pointer
+  'DOA'          // Digital Object Architecture
 ];
 
 async function fetchRecord(domain, type) {
