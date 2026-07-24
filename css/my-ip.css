@@ -1,9 +1,10 @@
-#my-ipv6 .responsive-br {
-  display: none;
+#my-ipv6 .responsive-break {
+  display: inline;
 }
 
 @media (max-width: 480px) {
-  #my-ipv6 .responsive-br {
-    display: inline;
+  #my-ipv6 .responsive-break {
+    display: block;
+    content: "";
   }
 }
