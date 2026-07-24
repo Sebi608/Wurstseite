@@ -14,11 +14,7 @@ async function fetchIps() {
   fetch('https://api6.ipify.org?format=json')
     .then(res => res.json())
     .then(data => {
-      const parts = data.ip.split(':');
-      const line1 = parts.slice(0, 4).join(':');
-      const line2 = parts.slice(4).join(':');
-
-      elemV6.innerHTML = `${line1}:<span class="responsive-break"></span>${line2}`;
+      elemV6.innerText = data.ip;
     })
     .catch(() => {
       elemV6.innerText = 'Keine IPv6-Verbindung vorhanden';
