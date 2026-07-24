@@ -18,7 +18,7 @@ async function fetchIps() {
       const line1 = parts.slice(0, 4).join(':');
       const line2 = parts.slice(4).join(':');
 
-      elemV6.innerHTML = `${line1}:<br class="responsive-br">${line2}`;
+      elemV6.innerHTML = `${line1}:<span class="responsive-break"></span>${line2}`;
     })
     .catch(() => {
       elemV6.innerText = 'Keine IPv6-Verbindung vorhanden';
