@@ -11,7 +11,7 @@ async function fetchIps() {
       elemV4.innerText = 'Fehler beim Laden (IPv4)';
     });
 
-  fetch('https://api64.ipify.org?format=json')
+  fetch('https://api6.ipify.org?format=json')
     .then(res => res.json())
     .then(data => {
       if (data.ip.includes(':')) {
