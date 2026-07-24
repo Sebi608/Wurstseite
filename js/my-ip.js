@@ -15,7 +15,11 @@ async function fetchIps() {
     .then(res => res.json())
     .then(data => {
       if (data.ip.includes(':')) {
-        elemV6.innerText = data.ip;
+        const parts = data.ip.split(':');
+        const line1 = parts.slice(0, 4).join(':');
+        const line2 = parts.slice(4).join(':');
+
+        elemV6.innerHTML = `${line1}:<br class="responsive-br">${line2}`;
       } else {
         elemV6.innerText = 'Keine IPv6-Verbindung vorhanden';
       }
