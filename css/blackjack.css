@@ -1,0 +1,229 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #0d2b17;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding: 12px;
+}
+
+header {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    border: 1px solid #f1c40f;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #bdc3c7;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2ecc71;
+}
+
+.bet-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background-color: #f1c40f;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-small:disabled {
+    opacity: 0.3;
+}
+
+.table {
+    background: radial-gradient(circle, #1a5e34 0%, #082211 100%);
+    border: 8px solid #4a2e1b;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 500px;
+    flex-grow: 1;
+    margin: 10px 0;
+    padding: 15px 10px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.area-title {
+    font-size: 0.9rem;
+    color: #ecf0f1;
+    margin-bottom: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+.cards {
+    display: flex;
+    gap: 6px;
+    min-height: 85px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 55px;
+    height: 80px;
+    background-color: white;
+    color: black;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    user-select: none;
+    animation: deal 0.2s ease-out;
+}
+
+@keyframes deal {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.card.red {
+    color: #e74c3c;
+}
+
+.card.hidden {
+    background: linear-gradient(135deg, #a93226 25%, #78281f 25%, #78281f 50%, #a93226 50%, #a93226 75%, #78281f 75%);
+    background-size: 16px 16px;
+    border: 2px solid white;
+    color: transparent;
+}
+
+.status-msg {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f1c40f;
+    text-align: center;
+    min-height: 28px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    padding: 0 10px;
+}
+
+.controls-wrapper {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.action-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 14px 0;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+}
+
+.btn-action:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.btn-action:disabled {
+    opacity: 0.35;
+    box-shadow: none;
+}
+
+.btn-start {
+    background-color: #f1c40f;
+    color: #000;
+}
+
+.btn-hit {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.btn-stand {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-double {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.back-link {
+    display: inline-block;
+    color: #f1f2f6;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: #ff4757;
+}
