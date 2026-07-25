@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Wettervorhersage für IT-Schüler – Powered by Team Wurstwasser">
-    <title>Wetter | Team Wurstwasser</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/wetter.css">
-    <script src="/js/wetter.js" defer></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Wettervorhersage für IT-Schüler - Powered by Team Wurstwasser">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="https://team-wurstwasser.com/img/Logo.png">
+        <title>Wetter | Team Wurstwasser</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/wetter.css">
+        <script src="/js/setup.js" defer></script>
+        <script src="/js/wetter.js" defer></script>
+    </head>
 
-<body>
-    <header>
-        <h1>Wetterstation</h1>
-        <p class="motto">"Das Wetter ist schlecht, unser Code noch schlechter."</p>
-    </header>
+    <body>
+        <header>
+            <h1>Wetterstation</h1>
+            <p class="motto">"Das Wetter ist schlecht, unser Code noch schlechter."</p>
+        </header>
 
-    <main>
-        <div class="container">
-            <a href="/" class="back-link">← Zurück zur Hauptseite</a>
+        <main>
+            <div class="container">
+                <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
 
-            <section class="card">
-                <h2>Wetterstation</h2>
-                
-                <div class="weather-search">
-                    <input type="text" id="cityInput" class="weather-input" placeholder="Stadt eingeben...">
-                    <button onclick="getWeatherByCity()" class="btn" style="margin-top: 0;">Suchen</button>
-                </div>
+                <section class="card">
+                    <h2>Wetterstation</h2>
+                    
+                    <div class="weather-search">
+                        <input type="text" id="cityInput" class="weather-input" placeholder="Stadt eingeben...">
+                        <button onclick="getWeatherByCity()" class="btn" style="margin-top: 0;">Suchen</button>
+                    </div>
 
-                <div id="weatherContent">
-                    <h3 id="cityName" style="font-size: 1.8rem; margin-bottom: 0;">Standort wird ermittelt...</h3>
-                    <div class="current-temp" id="temperature">--°C</div>
-                    <div class="condition-text" id="condition">Bitte warten</div>
+                    <div id="weatherContent">
+                        <h3 id="cityName" style="font-size: 1.8rem; margin-bottom: 0;">Standort wird ermittelt...</h3>
+                        <div class="current-temp" id="temperature">--°C</div>
+                        <div class="condition-text" id="condition">Bitte warten</div>
 
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-label">Wind</span>
-                            <span class="stat-value" id="windSpeed">-- km/h</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Feuchtigkeit</span>
-                            <span class="stat-value" id="humidity">--%</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Regenrisiko</span>
-                            <span class="stat-value" id="pop">--%</span>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Wind</span>
+                                <span class="stat-value" id="windSpeed">-- km/h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Feuchtigkeit</span>
+                                <span class="stat-value" id="humidity">--%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Regenrisiko</span>
+                                <span class="stat-value" id="pop">--%</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="error-msg" id="errorMsg"></div>
-            </section>
+                    <div class="error-msg" id="errorMsg"></div>
+                </section>
 
-            <section class="card">
-                <h2>5-Tage Vorhersage</h2>
-                <div class="forecast-container" id="forecastList"></div>
-            </section>
-        </div>
-    </main>
-</body>
+                <section class="card">
+                    <h2>5-Tage Vorhersage</h2>
+                    <div class="forecast-container" id="forecastList"></div>
+                </section>
+            </div>
+        </main>
+    </body>
 </html>
