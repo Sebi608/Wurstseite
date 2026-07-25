@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Der offizielle Meme-Generator von Team Wurstwasser. Angetrieben von Reddit und feinstem IT-Humor.">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="https://team-wurstwasser.com/img/Logo.png">
+        <meta name="twitter:card" content="summary_large_image">
+        <link rel="canonical" href="https://team-wurstwasser.com/memes.html">
+        <title>Team Wurstwasser | Memes</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/setup.js" defer></script>
+        <style>
+            .meme-controls {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                margin-top: 15px;
+            }
+
+            .select-style, .input-style {
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+                border-radius: 8px;
+                padding: 10px 14px;
+                color: var(--text-main, #f8fafc);
+                font-size: 0.95rem;
+                font-weight: 600;
+                outline: none;
+                transition: border-color 0.2s, background 0.2s;
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .select-style:focus, .input-style:focus {
+                border-color: var(--accent, #ffa502);
+                background: rgba(255, 255, 255, 0.12);
+            }
+
+            .select-style option {
+                background-color: #161b22;
+                color: #f8fafc;
+            }
+
+            .meme-card {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .meme-header-info {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.85rem;
+                color: var(--text-muted, #8b949e);
+            }
+
+            .subreddit-badge {
+                background: rgba(255, 165, 2, 0.15);
+                color: var(--accent, #ffa502);
+                padding: 4px 10px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.2s;
+            }
+
+            .subreddit-badge:hover {
+                background: rgba(255, 165, 2, 0.3);
+            }
+
+            .meme-title {
+                font-size: 1.2rem;
+                margin: 5px 0;
+            }
+
+            .meme-img-container {
+                width: 100%;
+                min-height: 280px;
+                background: rgba(0, 0, 0, 0.25);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                position: relative;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .meme-img-container img {
+                max-width: 100%;
+                max-height: 500px;
+                object-fit: contain;
+                border-radius: 8px;
+            }
+
+            .spinner {
+                width: 36px;
+                height: 36px;
+                border: 4px solid rgba(255, 255, 255, 0.1);
+                border-left-color: var(--accent, #ffa502);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                position: absolute;
+            }
+
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+
+            .meme-footer-actions {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .upvotes {
+                color: var(--primary, #ff4757);
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .action-buttons {
+                display: flex;
+                gap: 8px;
+            }
+
+            .btn-small {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>Reddit Memes</h1>
+        </header>
+
+        <main>
+            <div class="container">
+
+                <section class="card meme-card">
+                    <div class="meme-controls">
+                        <select id="subredditSelect" class="select-style" onchange="handleSelectChange()">
+                            <option value="">🎲 Zufälliges Meme</option>
+                            <option value="ich_iel">🥨 r/ich_iel</option>
+                            <option value="ProgrammerHumor">💻 r/ProgrammerHumor</option>
+                            <option value="dankmemes">🔥 r/dankmemes</option>
+                            <option value="memes">😂 r/memes</option>
+                            <option value="wholesomememes">❤️ r/wholesomememes</option>
+                            <option value="custom">✏️ Eigenes Subreddit...</option>
+                        </select>
+
+                        <input type="text" id="customInput" class="input-style" placeholder="z.B. GermanMemes" style="display: none;">
+                        <button class="btn" id="fetchBtn" onclick="fetchMeme()">Nächstes Meme ➔</button>
+                    </div>
+
+                    <br>
+
+                    <div class="meme-header-info">
+                        <a href="#" target="_blank" id="subredditBadge" class="subreddit-badge">r/memes</a>
+                        <span id="author">u/...</span>
+                    </div>
+
+                    <h3 class="meme-title" id="memeTitle">Lade frisches Meme...</h3>
+
+                    <div class="meme-img-container">
+                        <div class="spinner" id="spinner"></div>
+                        <img id="memeImg" src="" alt="Meme Image" style="display: none;" onload="onImageLoaded()" onerror="onImageError()">
+                    </div>
+
+                    <div class="meme-footer-actions">
+                        <div class="upvotes">
+                            ❤️ <span id="upvotesCount">0</span> Upvotes
+                        </div>
+                        <div class="action-buttons">
+                            <a id="redditLink" href="#" target="_blank" class="btn btn-small" rel="noopener">Reddit ↗</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <script>
+            const API_BASE = "https://meme-api.com/gimme";
+
+            const subredditSelect = document.getElementById("subredditSelect");
+            const customInput = document.getElementById("customInput");
+            const memeTitle = document.getElementById("memeTitle");
+            const memeImg = document.getElementById("memeImg");
+            const subredditBadge = document.getElementById("subredditBadge");
+            const author = document.getElementById("author");
+            const upvotesCount = document.getElementById("upvotesCount");
+            const redditLink = document.getElementById("redditLink");
+            const spinner = document.getElementById("spinner");
+            const fetchBtn = document.getElementById("fetchBtn");
+
+            function handleSelectChange() {
+                if (subredditSelect.value === "custom") {
+                    customInput.style.display = "block";
+                    customInput.focus();
+                } else {
+                    customInput.style.display = "none";
+                }
+            }
+
+            async function fetchMeme() {
+                let endpoint = API_BASE;
+                
+                let selectedSub = subredditSelect.value;
+                if (selectedSub === "custom") {
+                    selectedSub = customInput.value.trim().replace(/^r\//, '');
+                }
+
+                if (selectedSub) {
+                    endpoint += `/${selectedSub}`;
+                }
+
+                spinner.style.display = "block";
+                memeImg.style.display = "none";
+                fetchBtn.disabled = true;
+                fetchBtn.style.opacity = "0.6";
+                memeTitle.innerText = "Lade frisches Meme...";
+
+                try {
+                    const response = await fetch(endpoint);
+                    if (!response.ok) throw new Error("Meme konnte nicht geladen werden.");
+                    const data = await response.json();
+
+                    memeTitle.innerText = data.title || "Unbenanntes Meme";
+                    subredditBadge.innerText = `r/${data.subreddit}`;
+                    subredditBadge.href = `https://reddit.com/r/${data.subreddit}`;
+                    author.innerText = `u/${data.author || 'unknown'}`;
+                    upvotesCount.innerText = data.ups ? data.ups.toLocaleString() : '0';
+                    redditLink.href = data.postLink || `https://reddit.com/r/${data.subreddit}`;
+
+                    memeImg.src = data.url;
+                } catch (error) {
+                    console.error(error);
+                    spinner.style.display = "none";
+                    memeTitle.innerText = "⚠️ Meme konnte nicht geladen werden.";
+                    fetchBtn.disabled = false;
+                    fetchBtn.style.opacity = "1";
+                }
+            }
+
+            function onImageLoaded() {
+                spinner.style.display = "none";
+                memeImg.style.display = "block";
+                fetchBtn.disabled = false;
+                fetchBtn.style.opacity = "1";
+            }
+
+            function onImageError() {
+                spinner.style.display = "none";
+                memeTitle.innerText = "⚠️ Bild konnte nicht geladen werden.";
+                fetchBtn.disabled = false;
+                fetchBtn.style.opacity = "1";
+            }
+
+            document.addEventListener("keydown", (e) => {
+                if (document.activeElement === customInput) return;
+                if (e.code === "Space" || e.code === "Enter") {
+                    e.preventDefault();
+                    fetchMeme();
+                }
+            });
+
+            fetchMeme();
+        </script>
+    </body>
+</html>
