@@ -1,0 +1,88 @@
+.market-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.market-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.market-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.market-list::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+
+.market-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 12px 20px;
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rank {
+    color: #ced4da;
+    font-size: 0.85em;
+    font-weight: bold;
+    width: 25px;
+}
+
+.item-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-symbol {
+    color: #ced4da;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    margin-left: 5px;
+}
+
+.item-price {
+    font-weight: bold;
+    text-align: right;
+}
+
+.item-change {
+    font-size: 0.85em;
+    display: block;
+    font-weight: bold;
+}
+
+.positive {
+    color: #2ed573;
+}
+
+.negative {
+    color: var(--primary);
+}
+
+.error-msg {
+    color: var(--primary);
+    font-weight: bold;
+    margin-top: 10px;
+}

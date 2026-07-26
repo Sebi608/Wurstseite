@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html lang="de">   
+<html lang="de">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Die ersten 100 Billionen Nachkommastellen von Pi">
+        <meta name="description" content="Krypto Kurse - Powered by Team Wurstwasser">
         <meta property="og:type" content="website">
         <meta property="og:image" content="https://team-wurstwasser.com/img/Logo.png">
-        <link rel="canonical" href="https://team-wurstwasser.com/random-stuff/pi.html">
-        <title>Pi | Team Wurstwasser</title>
+        <link rel="canonical" href="https://team-wurstwasser.com/random-stuff/krypto.html">
+        <title>Krypto | Team Wurstwasser</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico">
         <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
         <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href="/css/pi.css">
+        <link rel="stylesheet" href="/css/krypto.css">
         <script src="/js/setup.js" defer></script>
-        <script src="/js/piscript.js" defer></script>
+        <script src="/js/krypto.js" defer></script>
     </head>
 
     <body>
         <header>
-            <h1>Pi</h1>
-            <p class="motto">Die ersten 100 Billionen Nachkommastellen:</p>
+            <h1>Kryptokurse</h1>
         </header>
 
         <main>
             <div class="container">
                 <a class="back-link" href="/random-stuff.html">← Zurück zur Random-Stuff Seite</a>
 
-                <div class="pi-list">
-                    <section class="card">
-                        <div id="pi-display"></div>
-                    </section>
-                </div>
+                <section class="card">
+                    <h2>Top 50 Kryptowährungen</h2>
+                    <div class="market-list" id="cryptoList">
+                        <p style="color: #ced4da;">Kurse werden geladen...</p>
+                    </div>
+                    <div class="error-msg" id="cryptoError"></div>
+                </section>
             </div>
         </main>
     </body>
