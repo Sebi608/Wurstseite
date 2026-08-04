@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Der offizielle Meme-Generator von Team Wurstwasser. Angetrieben von Reddit und feinstem IT-Humor.">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="https://team-wurstwasser.com/img/Logo.png">
+        <link rel="canonical" href="https://team-wurstwasser.com/reddit.html">
+        <title>Team Wurstwasser | Memes</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/reddit.css">
+        <script src="/js/setup.js" defer></script>
+        <script src="/js/reddit.js" defer></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>Reddit Memes</h1>
+        </header>
+
+        <main>
+            <div class="container">
+                <a class="back-link" href="/">← Zurück zur Startseite</a>
+
+                <section class="card">
+                    <div class="meme-controls">
+                        <select id="subredditSelect" class="select-style" onchange="handleSelectChange()">
+                            <option value="">🎲 Zufälliges Meme</option>
+                            <option value="ich_iel">🥨 r/ich_iel</option>
+                            <option value="ProgrammerHumor">💻 r/ProgrammerHumor</option>
+                            <option value="dankmemes">🔥 r/dankmemes</option>
+                            <option value="memes">😂 r/memes</option>
+                            <option value="wholesomememes">❤️ r/wholesomememes</option>
+                            <option value="custom">✏️ Eigenes Subreddit...</option>
+                        </select>
+
+                        <input type="text" id="customInput" class="input-style" placeholder="z.B. GermanMemes" style="display: none;">
+                        <button class="btn" id="fetchBtn" onclick="fetchMeme()">Nächstes Meme ➔</button>
+                    </div>
+
+                    <br>
+
+                    <div class="meme-header-info">
+                        <a href="#" target="_blank" id="subredditBadge" class="subreddit-badge">r/memes</a>
+                        <span id="author">u/...</span>
+                    </div>
+
+                    <h3 class="meme-title" id="memeTitle">Lade frisches Meme...</h3>
+
+                    <div class="meme-img-container">
+                        <div class="spinner" id="spinner"></div>
+                        <img id="memeImg" src="" alt="Meme Image" style="display: none;" onload="onImageLoaded()" onerror="onImageError()">
+                    </div>
+
+                    <div class="meme-footer-actions">
+                        <div class="upvotes">
+                            ❤️ <span id="upvotesCount">0</span> Upvotes
+                        </div>
+                        <div class="action-buttons">
+                            <a id="redditLink" href="#" target="_blank" class="btn btn-small" rel="noopener">Reddit ↗</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>
