@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Casino Blackjack Mobile | Team Wurstwasser</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
+    <link rel="stylesheet" href="/css/blackjack.css">
+    <script src="/js/blackjack.js" defer></script>
+</head>
+<body>
+    <a class="back-link" href="/">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Zurück zur Startseite
+    </a>
+
+    <header>
+        <div class="stat-box">
+            <span class="stat-label">Guthaben</span>
+            <span id="balance" class="stat-value balance-value">1000 $</span>
+        </div>
+        <div class="stat-box align-end">
+            <span class="stat-label">Einsatz</span>
+            <div class="bet-controls">
+                <button id="btn-minus" class="btn-small" onclick="adjustBet(-10)">−</button>
+                <span id="bet" class="stat-value bet-value">50 $</span>
+                <button id="btn-plus" class="btn-small" onclick="adjustBet(10)">+</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="table">
+        <div class="felt-texture"></div>
+        
+        <div class="area">
+            <div class="area-title">Dealer <span id="dealer-score" class="badge">0</span></div>
+            <div id="dealer-cards" class="cards"></div>
+        </div>
+
+        <div id="status" class="status-msg">Platziere deinen Einsatz!</div>
+
+        <div class="area">
+            <div class="area-title">Spieler <span id="player-score" class="badge">0</span></div>
+            <div id="player-cards" class="cards"></div>
+        </div>
+    </main>
+
+    <div class="controls-wrapper">
+        <button id="btn-start" class="btn-action btn-start" onclick="startGame()">Neues Spiel</button>
+        <div class="action-row">
+            <button id="btn-hit" class="btn-action btn-hit" onclick="hit()" disabled>Karte</button>
+            <button id="btn-double" class="btn-action btn-double" onclick="doubleDown()" disabled>Doppeln</button>
+            <button id="btn-stand" class="btn-action btn-stand" onclick="stand()" disabled>Halten</button>
+        </div>
+    </div>
+</body>
+</html>
