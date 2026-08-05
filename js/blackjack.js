@@ -28,7 +28,7 @@ function adjustBet(amount) {
     if (!gameOver) return;
 
     const newBet = currentBet + amount;
-    if (newBet >= 10 && newBet <= balance) {
+    if (newBet >= 10 && (amount < 0 || newBet <= balance)) {
         currentBet = newBet;
         betEl.textContent = `${currentBet} $`;
     }
@@ -208,4 +208,9 @@ function endGame(message, payoutMultiplier) {
     btnHit.disabled = true;
     btnStand.disabled = true;
     btnDouble.disabled = true;
+
+    if (currentBet > balance && balance >= 10) {
+        currentBet = balance;
+        betEl.textContent = `${currentBet} $`;
+    }
 }
