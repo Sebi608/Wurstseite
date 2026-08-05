@@ -1,0 +1,212 @@
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: #f4ecd8;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+.anzeige {
+    width: 260px;
+    height: 310px;
+    background-color:rgba(0, 0, 0, 0.67);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.anzeige tr {
+    text-align: center;
+    display: flex;
+    gap: 0px;
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.anzeige tr td{
+    width: 50px;
+    height: 50px;
+    font-size: xx-large;
+    text-align: center;
+    font-variant: small-caps;
+    font-variant-caps: all-small-caps;
+    font-family: Arial;
+    color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 7px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.txtinpt {
+    width: 260px;
+    height: 60px;
+    display: flex; 
+    gap: 0px;
+    background-color: rgba(0, 0, 0, 0.67);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.input {
+    width: 50px;
+    height: 50px;
+    font-size:xx-large;
+    text-align: center;
+    font-variant: small-caps;
+    font-variant-caps: all-small-caps;
+    font-family: Arial;
+    caret-color: transparent;
+    background-color: dimgray;
+    color: white;
+    border: 1px solid #000000;
+    border-radius: 7px;
+}
+
+.input:focus { background-color: gray; border: 2px solid gray; outline: none; }
+
+.reset {
+    width: 220px;
+    height: 52px;
+    background-color: rgba(0, 0, 0, 0.67);
+    border: 1px solid #000000;
+    border-radius: 20px;
+    color: #ffffff;
+    font-size: large;
+    font-family: Arial;
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.reset:hover { background-color: rgba(0, 0, 0, 0.42); border: 1px solid #000000; }
+
+.wordle {
+    width: 300px;
+    height: 600px;
+    background-color: gray;
+    border: 2px solid #000000;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.keyboard{
+    width: 280px;
+    height: 140px;
+    background-color:rgba(0, 0, 0, 0.67);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.keyboard tr{
+    text-align: center;
+    display: flex;
+    gap: 0px;
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.key{
+    width: 25px;
+    height: 42px;
+    font-size:large;
+    text-align: center;
+    font-variant: small-caps;
+    font-variant-caps: all-small-caps;
+    font-family: Arial;
+    background-color: dimgray;
+    color: white;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.big_key{
+    width: 35px;
+    height: 42px;
+    font-size: large;
+    text-align: center;
+    background-color: dimgray;
+    color: white;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.key:hover, .big_key:hover { background-color: gray; border: 1px solid #000000; }
+
+.game-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.header-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 15px;
+}
+
+.logo { height: 60px; width: auto; }
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Latin Modern Mono', monospace;
+    color: #000;
+    text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+@media (max-width: 800px) {
+    .logo-text { display: none; }
+    .header-container { margin-top: 10px; }
+    .logo { height: 40px; width: 40px; }
+    .anzeige{width: 220px; height: 262px;}
+    .anzeige tr td, .input{width: 42px; height: 42px;}
+    .txtinpt{width: 220px; height: 52px;}
+    .reset{height: 50px;}
+    .wordle{height: 545px;}
+}

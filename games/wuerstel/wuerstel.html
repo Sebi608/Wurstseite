@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="description" content="Errate das geheime Wort mit 5 Buchstaben in sechs Versuchen.">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="team-wurstwasser.com/img/Logo.png">
+        <title>Würstel</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
+        <link rel="stylesheet" href="/css/games/wuerstel.css">
+        <script src="/js/games/wuerstel.js" defer></script>
+    </head>
+
+    <body>
+        <div class="header-container">
+            <a href="https://team-wurstwasser.com/" class="logo-link">
+                <img class="logo" src="/img/Logo.png">
+                <span class="logo-text">Team Wurstwasser</span>
+            </a>
+        </div>
+
+        <div class="game-container">
+            <main class="main-area">
+                <div class="wordle">
+                    <table class="anzeige" border="1">
+                        <tr id="z1">
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                        </tr>
+                        <tr id="z2">
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                        </tr>
+                        <tr id="z3">
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                        </tr>
+                        <tr id="z4">
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                        </tr>
+                        <tr id="z5">
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                        </tr>
+                        <tr id="z6">
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                            <td class="ausgabe"></td>
+                        </tr>
+                    </table>
+
+                    <div class="txtinpt">
+                        <input type="text" class="input" maxlength="1" inputmode="none">
+                        <input type="text" class="input" maxlength="1" inputmode="none">
+                        <input type="text" class="input" maxlength="1" inputmode="none">
+                        <input type="text" class="input" maxlength="1" inputmode="none">
+                        <input type="text" class="input" maxlength="1" inputmode="none">
+                    </div>
+
+                    <button id="reset" class="reset">Neues Spiel</button>
+
+                    <table class="keyboard">
+                        <tr>
+                            <td><button class="key" data-key="q">Q</button></td>
+                            <td><button class="key" data-key="w">W</button></td>
+                            <td><button class="key" data-key="e">E</button></td>
+                            <td><button class="key" data-key="r">R</button></td>
+                            <td><button class="key" data-key="t">T</button></td>
+                            <td><button class="key" data-key="z">Z</button></td>
+                            <td><button class="key" data-key="u">U</button></td>
+                            <td><button class="key" data-key="i">I</button></td>
+                            <td><button class="key" data-key="o">O</button></td>
+                            <td><button class="key" data-key="p">P</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="key" data-key="a">A</button></td>
+                            <td><button class="key" data-key="s">S</button></td>
+                            <td><button class="key" data-key="d">D</button></td>
+                            <td><button class="key" data-key="f">F</button></td>
+                            <td><button class="key" data-key="g">G</button></td>
+                            <td><button class="key" data-key="h">H</button></td>
+                            <td><button class="key" data-key="j">J</button></td>
+                            <td><button class="key" data-key="k">K</button></td>
+                            <td><button class="key" data-key="l">L</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="big_key" data-key="enter">⏎</button></td>
+                            <td><button class="key" data-key="y">Y</button></td>
+                            <td><button class="key" data-key="x">X</button></td>
+                            <td><button class="key" data-key="c">C</button></td>
+                            <td><button class="key" data-key="v">V</button></td>
+                            <td><button class="key" data-key="b">B</button></td>
+                            <td><button class="key" data-key="n">N</button></td>
+                            <td><button class="key" data-key="m">M</button></td>
+                            <td><button class="big_key" data-key="backspace">⌫</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
