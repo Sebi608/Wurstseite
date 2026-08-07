@@ -3,29 +3,220 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Informationen über Sebastian, den CIO von Team Wurstwasser.">
         <meta property="og:type" content="website">
         <meta property="og:image" content="https://team-wurstwasser.com/img/Logo.png">
-        <meta name="robots" content="noindex">
-        <link rel="canonical" href="https://team-wurstwasser.com/mitglieder/sebastian/sebastian.html">
-        <title>Sebastian | Team Wurstwasser</title>
+        <link rel="canonical" href="https://team-wurstwasser.com/games.html">
+        <title>Web Terminal | Sebastian</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico">
         <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
-        <link rel="stylesheet" href="/css/style.css">
-        <script src="/js/setup.js" defer></script>
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/mitglieder/sebastian/sebastian.css">
+        <script src="/mitglieder/sebastian/sebastian.js" defer></script>
     </head>
 
     <body>
-        <header>
-            <h1>Sebastian</h1>
-            <p class="motto">CIO</p>
-        </header>
-
-        <main>
-            <div class="container">
-                <a class="back-link" href="../mitglieder.html">← Zurück zur Mitglieder Seite</a>
-
+        <div class="panel">
+            <div class="panel-header">
+                <span>Panel</span>
+                <span>System</span>
             </div>
-        </main>
+
+            <div class="clock" id="clock">0:0:0</div>
+
+            <div>
+                <div class="sub-stat"><span>2026 MAY 6</span> <span>UPTIME 10d:23:51</span></div>
+                <div class="sub-stat"><span>TYPE linux</span> <span>POWER 100%</span></div>
+            </div>
+
+            <div>
+                <div class="sub-stat"><span>MANUFACTURER</span> <span>MODEL</span></div>
+                <div class="sub-stat" style="color:var(--primary-cyan);"><span>Dell Inc.</span> <span>XPS 15</span></div>
+            </div>
+
+            <div>
+                <div class="sub-stat"><span>CPU USAGE</span> <span>Intel i7-9750H</span></div>
+                <div class="chart-box"><canvas id="cpuChart"></canvas></div>
+            </div>
+
+            <div>
+                <div class="sub-stat"><span>MEMORY</span> <span>USING 23.2 / 31.6 GiB</span></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="panel-header" style="margin-bottom:6px;">TOP PROCESSES</div>
+                <table class="process-table">
+                    <tr>
+                        <td>1 init</td>
+                        <td>28.7%</td>
+                        <td>0%</td>
+                    </tr>
+
+                    <tr>
+                        <td>4975 brave</td>
+                        <td>10.8%</td>
+                        <td>18.2%</td>
+                    </tr>
+
+                    <tr>
+                        <td>840 Xorg</td>
+                        <td>3.5%</td>
+                        <td>0.8%</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>1583 kwin_x11</td>
+                        <td>3.1%</td>
+                        <td>0.8%</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="center-container">
+            <div class="terminal-panel">
+                <div class="tab-bar">
+                    <div class="tab active">MAIN - bash</div>
+                    <div class="tab">EMPTY</div>
+                    <div class="tab">EMPTY</div>
+                </div>
+
+                <div class="terminal-body" id="termBody">
+                    <div>Welcome to Main Server Panel v1.1 - web - HTML Shell Engine</div>
+                    <div class="cmd-line">
+                        <span class="prompt">[user@sebastian ~]$</span>
+                        <input type="text" class="terminal-input" id="termInput" autofocus autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-grid">
+                <div class="filesystem-box">
+                    <div class="file-item">
+                        <div class="file-icon"></div>
+                        <div class="file-name">bin</div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-icon"></div>
+                        <div class="file-name">etc</div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-icon"></div>
+                        <div class="file-name">home</div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-icon"></div>
+                        <div class="file-name">opt</div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-icon"></div>
+                        <div class="file-name">tmp</div>
+                    </div>
+                    
+                    <div class="file-item">
+                        <div class="file-icon"></div>
+                        <div class="file-name">usr</div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-icon"></div>
+                        <div class="file-name">var</div>
+                    </div>
+                </div>
+
+                <div class="keyboard-box" id="virtualKb">
+                    <div class="kb-row">
+                        <div class="key" data-key="Escape">ESC</div>
+                        <div class="key" data-key="1">1</div>
+                        <div class="key" data-key="2">2</div>
+                        <div class="key" data-key="3">3</div>
+                        <div class="key" data-key="4">4</div>
+                        <div class="key" data-key="5">5</div>
+                        <div class="key" data-key="6">6</div>
+                        <div class="key" data-key="7">7</div>
+                        <div class="key" data-key="8">8</div>
+                        <div class="key" data-key="9">9</div>
+                        <div class="key" data-key="0">0</div>
+                        <div class="key key-wide" data-key="Backspace">BACK</div>
+                    </div>
+
+                    <div class="kb-row">
+                        <div class="key key-wide" data-key="Tab">TAB</div>
+                        <div class="key" data-key="q">Q</div>
+                        <div class="key" data-key="w">W</div>
+                        <div class="key" data-key="e">E</div>
+                        <div class="key" data-key="r">R</div>
+                        <div class="key" data-key="t">T</div>
+                        <div class="key" data-key="y">Y</div>
+                        <div class="key" data-key="u">U</div>
+                        <div class="key" data-key="i">I</div>
+                        <div class="key" data-key="o">O</div>
+                        <div class="key" data-key="p">P</div>
+                        <div class="key key-wide" data-key="Enter">ENTER</div>
+                    </div>
+
+                    <div class="kb-row">
+                        <div class="key key-wide" data-key="CapsLock">CAPS</div>
+                        <div class="key" data-key="a">A</div>
+                        <div class="key" data-key="s">S</div>
+                        <div class="key" data-key="d">D</div>
+                        <div class="key" data-key="f">F</div>
+                        <div class="key" data-key="g">G</div>
+                        <div class="key" data-key="h">H</div>
+                        <div class="key" data-key="j">J</div>
+                        <div class="key" data-key="k">K</div>
+                        <div class="key" data-key="l">L</div>
+                    </div>
+
+                    <div class="kb-row">
+                        <div class="key key-wide" data-key="Shift">SHIFT</div>
+                        <div class="key" data-key="z">Z</div>
+                        <div class="key" data-key="x">X</div>
+                        <div class="key" data-key="c">C</div>
+                        <div class="key" data-key="v">V</div>
+                        <div class="key" data-key="b">B</div>
+                        <div class="key" data-key="n">N</div>
+                        <div class="key" data-key="m">M</div>
+                        <div class="key key-wide" data-key="Shift">SHIFT</div>
+                    </div>
+
+                    <div class="kb-row">
+                        <div class="key" data-key="Control">CTRL</div>
+                        <div class="key" data-key="Alt">ALT</div>
+                        <div class="key key-space" data-key=" ">SPACE</div>
+                        <div class="key" data-key="AltGraph">ALT GR</div>
+                        <div class="key" data-key="Control">CTRL</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <span>Panel</span>
+                <span>Network</span>
+            </div>
+
+            <div>
+                <div class="sub-stat"><span>NETWORK STATUS</span> <span>IPv4</span></div>
+                <div class="sub-stat" style="color:var(--primary-cyan)"><span>ONLINE</span> <span>192.168.1.187</span></div>
+            </div>
+
+            <div class="panel-header">WORLD VIEW</div>
+            <div class="globe-container">
+                <canvas id="globeCanvas"></canvas>
+            </div>
+
+            <div>
+                <div class="sub-stat"><span>NETWORK TRAFFIC</span> </div>
+                <div class="chart-box"><canvas id="netChart"></canvas></div>
+            </div>
+        </div>
     </body>
 </html>
