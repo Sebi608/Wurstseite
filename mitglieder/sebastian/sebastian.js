@@ -116,7 +116,7 @@ window.addEventListener('keydown', (e) => {
                 termBody.innerHTML = '';
                 termBody.appendChild(termInput.parentElement);
             } else if (trimmedCmd === 'help') {
-                res.textContent = 'Verfügbare Befehle: help, clear, date, echo, whoami';
+                res.textContent = 'Verfügbare Befehle: help, clear, date, echo, whoami, exit';
                 termBody.insertBefore(res, termInput.parentElement);
             } else if (trimmedCmd === 'whoami') {
                 res.textContent = 'sebastian';
@@ -130,6 +130,8 @@ window.addEventListener('keydown', (e) => {
             } else if (trimmedCmd === 'echo') {
                 res.textContent = '';
                 termBody.insertBefore(res, termInput.parentElement);
+            } else if (trimmedCmd === 'exit') {
+                window.location.href = '/';
             } else {
                 res.textContent = `bash: command not found: ${cmd}`;
                 termBody.insertBefore(res, termInput.parentElement);
