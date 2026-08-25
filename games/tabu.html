@@ -1,42 +1,98 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="/js/games/tabu/words.js" defer></script>
-  <script src="/js/games/tabu/tabu.js" defer></script>
-  <link rel="stylesheet" href="/css/games/tabu.css">
-  <title>Tabu Spiel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tabu Spiel - Team Wurstwasser">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://team-wurstwasser.com/img/Logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Tabu Spiel | Team Wurstwasser</title>
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="256x256" href="/img/Logo.png">
+    
+    <!-- Globale Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/games/tabu.css">
+    
+    <!-- Skripte -->
+    <script src="/js/setup.js" defer></script>
+    <script src="/js/games/tabu/words.js" defer></script>
+    <script src="/js/games/tabu/tabu.js" defer></script>
 </head>
 <body>
 
-  <div class="game-container">
-    
-    <!-- Status-Leiste -->
-    <div class="header-bar">
-      <div>Zeit: <span id="timer">60</span>s</div>
-      <div>Punkte: <span id="score">0</span></div>
-    </div>
+    <!-- Menü Button für die Sidebar -->
+    <div class="menu-toggle" id="menu-toggle">☰</div>
 
-    <!-- Start-Bildschirm -->
-    <div id="start-screen" class="card">
-      <h2>Bereit für Tabu?</h2>
-      <p>Erkläre den Begriff oben, ohne die roten Wörter zu benutzen!</p>
-      <button class="btn-start" onclick="startGame()">Spiel Starten</button>
-    </div>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="sidebar-link">
+                <img src="/img/Logo.png" alt="Logo" class="sidebar-logo">
+                <span class="sidebar-span">Wurstwasser</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/mitglieder/mitglieder.html">Mitglieder</a></li>
+            <li><a href="/games.html">Games</a></li>
+            <li><a href="/random-stuff.html">Random Stuff</a></li>
+            <li><a href="/reddit.html">Memes</a></li>
+        </ul>
+    </aside>
 
-    <!-- Spiel-Karte -->
-    <div id="game-screen" class="card hidden">
-      <div id="target-word" class="target-word">LADE...</div>
-      <ul id="taboo-list" class="taboo-list"></ul>
-    </div>
+    <header>
+        <h1>TABU SPIEL</h1>
+        <p class="motto">"Der edle Tropfen unter den Abgründen"</p>
+    </header>
 
-    <!-- Aktions-Buttons -->
-    <div id="controls" class="actions hidden">
-      <button class="btn-wrong" onclick="nextCard(false)">Tabu! (-1)</button>
-      <button class="btn-correct" onclick="nextCard(true)">Richtig (+1)</button>
-    </div>
+    <main>
+        <div class="container">
 
-  </div>
+            <!-- Status-Leiste -->
+            <section class="card">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem;">
+                    <div>Zeit: <span id="timer" style="color: var(--accent, #ff4757);">60</span>s</div>
+                    <div>Punkte: <span id="score" style="color: var(--accent, #ff4757);">0</span></div>
+                </div>
+            </section>
+
+            <!-- Start-Bildschirm -->
+            <section id="start-screen" class="card" style="text-align: center;">
+                <h2>Bereit für Tabu?</h2>
+                <p style="margin: 15px 0;">Erkläre den Begriff oben, ohne die roten Wörter zu benutzen!</p>
+                <button class="btn" style="cursor: pointer;" onclick="startGame()">Spiel Starten</button>
+            </section>
+
+            <!-- Spiel-Karte -->
+            <section id="game-screen" class="card hidden" style="text-align: center;">
+                <div id="target-word" style="font-size: 2rem; font-weight: bold; color: var(--accent, #ff4757); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;">LADE...</div>
+                
+                <ul id="taboo-list">
+                    <!-- Wörter werden durch tabu.js als <li> eingefügt -->
+                </ul>
+            </section>
+
+            <!-- Aktions-Buttons -->
+            <section id="controls" class="card hidden">
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn" style="background-color: #ff4757; flex: 1; max-width: 200px; cursor: pointer;" onclick="nextCard(false)">Tabu! (-1)</button>
+                    <button class="btn" style="background-color: #2ed573; flex: 1; max-width: 200px; cursor: pointer;" onclick="nextCard(true)">Richtig (+1)</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <ul>
+            <li>&copy; Team Wurstwasser</li>
+            <li><a href="https://github.com/Team-Wurstwasser" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+    </footer>
+
 </body>
 </html>
