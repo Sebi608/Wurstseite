@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabu Spiel</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .game-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .target-word {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .taboo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .taboo-list li {
+      font-size: 1.2rem;
+      color: #e74c3c;
+      padding: 10px;
+      margin: 6px 0;
+      background-color: #fdf2f2;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .btn-correct {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    .btn-wrong {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .btn-start {
+      background-color: #3498db;
+      color: white;
+      grid-column: span 2;
+      font-size: 1.2rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-container">
+    
+    <!-- Status-Leiste -->
+    <div class="header-bar">
+      <div>Zeit: <span id="timer">60</span>s</div>
+      <div>Punkte: <span id="score">0</span></div>
+    </div>
+
+    <!-- Start-Bildschirm -->
+    <div id="start-screen" class="card">
+      <h2>Bereit für Tabu?</h2>
+      <p>Erkläre den Begriff oben, ohne die roten Wörter zu benutzen!</p>
+      <button class="btn-start" onclick="startGame()">Spiel Starten</button>
+    </div>
+
+    <!-- Spiel-Karte -->
+    <div id="game-screen" class="card hidden">
+      <div id="target-word" class="target-word">LADE...</div>
+      <ul id="taboo-list" class="taboo-list"></ul>
+    </div>
+
+    <!-- Aktions-Buttons -->
+    <div id="controls" class="actions hidden">
+      <button class="btn-wrong" onclick="nextCard(false)">Tabu! (-1)</button>
+      <button class="btn-correct" onclick="nextCard(true)">Richtig (+1)</button>
+    </div>
+
+  </div>
+
+  <script>
+    // Karten-Datenbank
+    const cards = [
+      { word: "APFEL", taboo: ["Obst", "Baum", "Rot", "Schneewittchen", "Kuchen"] },
+      { word: "STRAND", taboo: ["Meer", "Sand", "Urlaub", "Sonne", "Palme"] },
+      { word: "INTERNET", taboo: ["WLAN", "Netzwerk", "Online", "Google", "Browser"] },
+      { word: "KAFFEE", taboo: ["Bohne", "Trinken", "Heiß", "Wach", "Espresso"] },
+      { word: "KINO", taboo: ["Film", "Popcorn", "Leinwand", "Sitz", "Schauspieler"] }
+    ];
+
+    let deck = [];
+    let currentCardIndex = 0;
+    let score = 0;
+    let timeLeft = 60;
+    let timerInterval = null;
+
+    function startGame() {
+      // Setup resetten
+      score = 0;
+      timeLeft = 60;
+      document.getElementById('score').textContent = score;
+      document.getElementById('timer').textContent = timeLeft;
+
+      // Karten mischen (Fisher-Yates)
+      deck = [...cards].sort(() => Math.random() - 0.5);
+      currentCardIndex = 0;
+
+      // UI Umschalten
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('game-screen').classList.remove('hidden');
+      document.getElementById('controls').classList.remove('hidden');
+
+      showCard();
+      
+      // Timer starten
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = timeLeft;
+        if (timeLeft <= 0) {
+          endGame();
+        }
+      }, 1000);
+    }
+
+    function showCard() {
+      if (currentCardIndex >= deck.length) {
+        endGame("Alle Karten gespielt!");
+        return;
+      }
+
+      const card = deck[currentCardIndex];
+      document.getElementById('target-word').textContent = card.word;
+      
+      const listEl = document.getElementById('taboo-list');
+      listEl.innerHTML = '';
+      card.taboo.forEach(word => {
+        const li = document.createElement('li');
+        li.textContent = word;
+        listEl.appendChild(li);
+      });
+    }
+
+    function nextCard(isCorrect) {
+      if (isCorrect) score++;
+      else score--;
+      
+      document.getElementById('score').textContent = score;
+      currentCardIndex++;
+      showCard();
+    }
+
+    function endGame(message = "Zeit abgelaufen!") {
+      clearInterval(timerInterval);
+      alert(`${message}\nDein Endstand: ${score} Punkte!`);
+      
+      // UI zurücksetzen
+      document.getElementById('game-screen').classList.add('hidden');
+      document.getElementById('controls').classList.add('hidden');
+      document.getElementById('start-screen').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
